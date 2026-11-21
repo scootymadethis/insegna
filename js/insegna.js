@@ -51,16 +51,25 @@
     } catch (err) { /* browser molto vecchi: resta "diretto" */ }
   }
 
-  // Anteprime degli esempi: scala l'iframe largo 390px alla finestra disponibile.
+  // Anteprime degli esempi: l'iframe è un telefono largo 390px, ridotto per riempire
+  // esattamente la cornice (larghezza e altezza), qualunque sia la sua dimensione.
   var finestre = document.querySelectorAll(".esempio__finestra");
-  if (finestre.length && "ResizeObserver" in window) {
-    var ro = new ResizeObserver(function (voci) {
-      voci.forEach(function (v) {
-        var larghezza = v.contentRect.width;
-        v.target.style.setProperty("--scala", (larghezza / 390).toFixed(4));
-      });
-    });
-    finestre.forEach(function (f) { ro.observe(f); });
+  function adatta(f) {
+    var iframe = f.querySelector("iframe");
+    if (!iframe || !f.clientWidth) return;
+    var scala = f.clientWidth / 390;
+    iframe.style.transform = "scale(" + scala.toFixed(4) + ")";
+    iframe.style.height = Math.ceil(f.clientHeight / scala) + "px";
+  }
+  function adattaTutte() { finestre.forEach(adatta); }
+  if (finestre.length) {
+    adattaTutte();
+    window.addEventListener("load", adattaTutte);
+    window.addEventListener("resize", adattaTutte);
+    if ("ResizeObserver" in window) {
+      var ro = new ResizeObserver(adattaTutte);
+      finestre.forEach(function (f) { ro.observe(f); });
+    }
   }
 
   aggiorna("", null);

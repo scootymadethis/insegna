@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "atelier-viola",
+    "nome": "Atelier Viola",
+    "tipo": "Parrucchiera, colore e sposa",
+    "citta": "Bergamo",
+    "tema": "salone",
+    "thumb": "atelier-viola/img/acconciatura.jpg"
+  },
+  {
+    "slug": "forno-ottavi",
+    "nome": "Forno Ottavi",
+    "tipo": "Panificio e pasticceria",
+    "citta": "Mantova",
+    "tema": "tavola",
+    "thumb": "forno-ottavi/img/pane-lievito-madre.jpg"
+  },
+  {
+    "slug": "rinaldi-impianti",
+    "nome": "Rinaldi Impianti",
+    "tipo": "Idraulico ed elettricista",
+    "citta": "Padova",
+    "tema": "bottega",
+    "thumb": "rinaldi-impianti/img/intervento-lavello.jpg"
+  }
+]

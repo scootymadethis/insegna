@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /anteprime/
+Sitemap: https://scootymadethis.github.io/insegna/sitemap.xml

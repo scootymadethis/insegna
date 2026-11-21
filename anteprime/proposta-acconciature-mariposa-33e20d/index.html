@@ -24,26 +24,18 @@
   <nav class="bar__nav" aria-label="Sezioni">
     <a href="#prima-e-dopo">Prima e dopo</a>
     <a href="#servizi">Servizi</a>
+    <a href="#lavori">Lavori</a>
     <a href="#orari">Orari</a>
     <a class="bar__wa" href="https://wa.me/393714577008?text=Ciao%20Mariposa%2C%20vorrei%20prenotare%20un%20appuntamento">Prenota su WhatsApp</a>
   </nav>
 </header>
 
 <main id="contenuto">
-  <div class="flight" id="flight" aria-hidden="true">
-    <svg class="flight__svg" id="flight-svg" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <mask id="reveal" maskUnits="userSpaceOnUse"><path id="reveal-path" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/></mask>
-      </defs>
-      <path id="trail" class="flight__trail" fill="none" mask="url(#reveal)"/>
-    </svg>
-  </div>
-  <div class="flyer" id="flyer" aria-hidden="true"></div>
 
   <section class="hero" id="inizio" aria-labelledby="hero-title">
     <div class="hero__inner">
       <div class="hero__text">
-        <p class="sign" aria-hidden="true"><span class="sign__script">Mariposa</span><span class="sign__small">acconciature</span></p>
+        <p class="sign" aria-hidden="true"><span class="sign__script">Mariposa</span><span class="sign__small">acconciature</span><span class="perch perch--sign" data-perch aria-hidden="true"><span class="bfly" id="bfly"><span class="bfly__tilt"><span class="bfly__wing bfly__wing--l"></span><span class="bfly__wing bfly__wing--r"></span></span></span></span></p>
         <h1 id="hero-title">Il tuo cambiamento comincia in via Cavour.</h1>
         <p class="hero__lede">Siamo un salone per donna e uomo a Dossobuono. Colore, tagli, ricci e trattamenti, con l'atmosfera di casa. Il mercoledì restiamo aperti fino alle 20.</p>
         <p class="rating">
@@ -55,14 +47,14 @@
           <a class="btn btn--line" href="tel:+39045954267">Chiama il negozio</a>
         </div>
       </div>
-      <figure class="arch" data-way="perch">
+      <figure class="arch">
         <img src="img/ricci-liberi.webp" width="900" height="1200" alt="Taglio corto riccio con schiariture calde, fotografato in salone davanti allo specchio ad arco">
-        <span class="arch__perch" id="perch"></span>
+        <img class="sprig" src="img/rametto-fiori.webp" width="209" height="340" alt="" aria-hidden="true">
       </figure>
     </div>
   </section>
 
-  <section class="meta" id="prima-e-dopo" aria-labelledby="meta-title" data-way="r-top">
+  <section class="meta" id="prima-e-dopo" aria-labelledby="meta-title">
     <div class="meta__inner">
       <div class="meta__text">
         <h2 id="meta-title">Prima e dopo</h2>
@@ -74,22 +66,22 @@
         <p class="meta__caption" id="ba-caption" aria-live="polite">Da un colore spento e disomogeneo a un borgogna profondo con riflessi magenta. Abbiamo uniformato e nutrito: ora il colore illumina il viso e i capelli sembrano più sani.</p>
         <p class="meta__source"><a id="ba-link" href="https://www.instagram.com/p/DfX1zVekddM/">Il post su Instagram</a>, novembre 2026</p>
       </div>
-      <div class="ba" id="ba" style="--pos:50%" data-way="ba">
+      <div class="ba" id="ba" style="--pos:50%">
         <img class="ba__img ba__prima" id="ba-prima" src="img/borgogna-prima.webp" width="900" height="1200" alt="Prima: capelli lunghi con un colore spento e ciocche rosa sbiadite">
         <img class="ba__img ba__dopo" id="ba-dopo" src="img/borgogna-dopo.webp" width="900" height="1200" alt="Dopo: capelli lunghi color borgogna con riflessi magenta">
         <span class="ba__tag ba__tag--prima" aria-hidden="true">Prima</span>
         <span class="ba__tag ba__tag--dopo" aria-hidden="true">Dopo</span>
         <span class="ba__line" aria-hidden="true"></span>
-        <span class="ba__handle" id="ba-handle" aria-hidden="true"></span>
+        <span class="ba__handle" id="ba-handle" aria-hidden="true"><span class="bfly bfly--handle"><span class="bfly__tilt"><span class="bfly__wing bfly__wing--l"></span><span class="bfly__wing bfly__wing--r"></span></span></span></span>
         <label class="sr-only" for="ba-range">Confronta prima e dopo: sposta verso sinistra per vedere il dopo</label>
         <input class="ba__range" id="ba-range" type="range" min="0" max="100" value="50">
       </div>
     </div>
   </section>
 
-  <section class="servizi" id="servizi" aria-labelledby="servizi-title" data-way="l-top l-bottom">
+  <section class="servizi" id="servizi" aria-labelledby="servizi-title">
     <div class="servizi__inner">
-      <h2 id="servizi-title">Cosa facciamo in salone</h2>
+      <h2 id="servizi-title">Cosa facciamo in <span class="nw">salone<span class="perch" data-perch aria-hidden="true"></span></span></h2>
       <div class="servizi__grid">
         <article>
           <h3>Colore</h3>
@@ -111,39 +103,80 @@
     </div>
   </section>
 
-  <section class="galleria" aria-labelledby="galleria-title" data-way="r-top r-bottom">
-    <div class="galleria__head">
-      <h2 id="galleria-title">Questo autunno, dal salone</h2>
-      <p>Lavori pubblicati sul nostro Instagram a novembre 2026. Scorri di lato.</p>
+  <section class="galleria" id="lavori" aria-labelledby="galleria-title">
+    <div class="galleria__pin">
+      <div class="galleria__head">
+        <h2 id="galleria-title">Questo autunno, dal <span class="nw">salone<span class="perch" data-perch aria-hidden="true"></span></span></h2>
+        <p>Lavori pubblicati sul nostro Instagram a novembre 2026.</p>
+      </div>
+      <div class="galleria__view">
+        <ul class="strip" id="strip">
+          <li><figure><img src="img/balayage.webp" width="640" height="853" loading="lazy" alt="Capelli mossi castani con balayage chiaro sulle punte"><figcaption>Balayage: una sfumatura morbida che si fonde con il tuo colore naturale.</figcaption></figure></li>
+          <li><figure><img src="img/rame.webp" width="640" height="853" loading="lazy" alt="Caschetto color rame luminoso visto di lato"><figcaption>Un rame luminoso che trasforma il caschetto.</figcaption></figure></li>
+          <li><figure><img src="img/pizzicata.webp" width="640" height="853" loading="lazy" alt="Ricci fitti e definiti con riflessi ramati"><figcaption>La pizzicata: volume, definizione e ricci che durano giorni.</figcaption></figure></li>
+          <li><figure><img src="img/colore-elegante.webp" width="640" height="853" loading="lazy" alt="Capelli lisci castani con riflessi caramello"><figcaption>Cambiare in modo elegante, senza diventare bionda.</figcaption></figure></li>
+          <li><figure><img src="img/scalato.webp" width="640" height="854" loading="lazy" alt="Taglio scalato castano visto da dietro"><figcaption>Scalato e leggero: movimento anche sui capelli sottili.</figcaption></figure></li>
+          <li><figure><img src="img/liscio-keyliss.webp" width="640" height="853" loading="lazy" alt="Capelli lunghi castani lisci e lucidi dopo la stiratura"><figcaption>Stiratura Keyliss: liscio da salone anche a casa.</figcaption></figure></li>
+          <li class="strip__end"><a href="https://www.instagram.com/mariposa_acconciature/"><span class="strip__script" aria-hidden="true">e molti altri</span><span>Tutti i lavori su Instagram</span><strong>@mariposa_acconciature</strong></a></li>
+        </ul>
+      </div>
+      <div class="galleria__track" aria-hidden="true"><span id="strip-bar"></span></div>
     </div>
-    <ul class="strip">
-      <li><figure><img src="img/balayage.webp" width="640" height="853" loading="lazy" alt="Capelli mossi castani con balayage chiaro sulle punte"><figcaption>Balayage: una sfumatura morbida che si fonde con il tuo colore naturale.</figcaption></figure></li>
-      <li><figure><img src="img/rame.webp" width="640" height="853" loading="lazy" alt="Caschetto color rame luminoso visto di lato"><figcaption>Un rame luminoso che trasforma il caschetto.</figcaption></figure></li>
-      <li><figure><img src="img/pizzicata.webp" width="640" height="853" loading="lazy" alt="Ricci fitti e definiti con riflessi ramati"><figcaption>La pizzicata: volume, definizione e ricci che durano giorni.</figcaption></figure></li>
-      <li><figure><img src="img/colore-elegante.webp" width="640" height="853" loading="lazy" alt="Capelli lisci castani con riflessi caramello"><figcaption>Cambiare in modo elegante, senza diventare bionda.</figcaption></figure></li>
-      <li><figure><img src="img/scalato.webp" width="640" height="854" loading="lazy" alt="Taglio scalato castano visto da dietro"><figcaption>Scalato e leggero: movimento anche sui capelli sottili.</figcaption></figure></li>
-      <li><figure><img src="img/liscio-keyliss.webp" width="640" height="853" loading="lazy" alt="Capelli lunghi castani lisci e lucidi dopo la stiratura"><figcaption>Stiratura Keyliss: liscio da salone anche a casa.</figcaption></figure></li>
-    </ul>
-    <p class="galleria__more"><a href="https://www.instagram.com/mariposa_acconciature/">Tutti i lavori su Instagram, @mariposa_acconciature</a></p>
   </section>
 
-  <section class="voci" aria-labelledby="voci-title" data-way="l-top l-bottom">
+  <section class="voci" aria-labelledby="voci-title">
     <div class="voci__inner">
-      <h2 id="voci-title">4,9 su Google, con 86 recensioni</h2>
-      <p class="voci__lede">Grazie a chi ha scritto di noi. Nelle vostre recensioni ci sono tre cose a cui teniamo moltissimo:</p>
-      <ul class="voci__list">
-        <li>un'atmosfera familiare, dentro un salone molto professionale;</li>
-        <li>gli orari degli appuntamenti rispettati;</li>
-        <li>il sorriso e la gentilezza di Mariagrazia, che mette subito a proprio agio.</li>
+      <div class="voci__head">
+        <h2 id="voci-title">4,9 su Google, con 86 <span class="nw">recensioni<span class="perch" data-perch aria-hidden="true"></span></span></h2>
+        <p class="voci__lede">Grazie a chi ha scritto di noi. Ecco alcune recensioni, con le vostre parole.</p>
+      </div>
+      <ul class="cards">
+        <li class="card card--1">
+          <img class="sprig card__sprig" src="img/rametto-boccioli.webp" width="163" height="300" alt="" aria-hidden="true" loading="lazy">
+          <figure>
+            <span class="card__stars" role="img" aria-label="5 stelle su 5"><svg viewBox="0 0 120 24" aria-hidden="true"><g fill="currentColor"><use href="#st"/><use href="#st" x="24"/><use href="#st" x="48"/><use href="#st" x="72"/><use href="#st" x="96"/></g></svg></span>
+            <blockquote><p>Personale gentilissimo ed educato, atmosfera familiare in un contesto molto professionale. I tempi di appuntamento e acconciatura sono sempre rispettati e la titolare una persona di una dolcezza e sensibilità disarmanti ha sempre il consiglio adatto alla persona che si affida alle sue mani d'oro.</p></blockquote>
+            <figcaption><strong>Carolina S.</strong> su Google</figcaption>
+          </figure>
+        </li>
+        <li class="card card--2">
+          <figure>
+            <span class="card__stars" role="img" aria-label="5 stelle su 5"><svg viewBox="0 0 120 24" aria-hidden="true"><g fill="currentColor"><use href="#st"/><use href="#st" x="24"/><use href="#st" x="48"/><use href="#st" x="72"/><use href="#st" x="96"/></g></svg></span>
+            <blockquote><p>Mariagrazia è una parrucchiera eccezionale: cordiale, disponibile e sempre pronta a mettere a proprio agio le clienti con il suo sorriso e la sua gentilezza.</p></blockquote>
+            <figcaption><strong>Manuela S.</strong> su Google</figcaption>
+          </figure>
+        </li>
+        <li class="card card--3">
+          <figure>
+            <span class="card__stars" role="img" aria-label="5 stelle su 5"><svg viewBox="0 0 120 24" aria-hidden="true"><g fill="currentColor"><use href="#st"/><use href="#st" x="24"/><use href="#st" x="48"/><use href="#st" x="72"/><use href="#st" x="96"/></g></svg></span>
+            <blockquote><p>Avevo chiesto un’acconciatura particolare per un matrimonio e sono stata molto soddisfatta, ha tenuto dalla mattina fino a tarda sera, perfettamente.</p></blockquote>
+            <figcaption><strong>Anna F.</strong> su Google</figcaption>
+          </figure>
+        </li>
+        <li class="card card--4">
+          <figure>
+            <span class="card__stars" role="img" aria-label="5 stelle su 5"><svg viewBox="0 0 120 24" aria-hidden="true"><g fill="currentColor"><use href="#st"/><use href="#st" x="24"/><use href="#st" x="48"/><use href="#st" x="72"/><use href="#st" x="96"/></g></svg></span>
+            <blockquote><p>Appena entri trovi atmosfera e calore come essere in una accogliente famiglia.</p></blockquote>
+            <figcaption><strong>Antonella B.</strong> su Google</figcaption>
+          </figure>
+        </li>
+        <li class="card card--5">
+          <figure>
+            <span class="card__stars" role="img" aria-label="5 stelle su 5"><svg viewBox="0 0 120 24" aria-hidden="true"><g fill="currentColor"><use href="#st"/><use href="#st" x="24"/><use href="#st" x="48"/><use href="#st" x="72"/><use href="#st" x="96"/></g></svg></span>
+            <blockquote><p>Sono rimasta soddisfatta sia del taglio che dei giochi di colori che avete creato!</p></blockquote>
+            <figcaption><strong>Alessia R.</strong> su Google</figcaption>
+          </figure>
+        </li>
       </ul>
-      <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Acconciature%20Mariposa%20Via%20Cavour%2048%20Dossobuono">Leggi le recensioni su Google</a>
+      <p class="voci__cta"><a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Acconciature%20Mariposa%20Via%20Cavour%2048%20Dossobuono">Leggi le recensioni su Google</a></p>
     </div>
   </section>
 
-  <section class="info" id="orari" aria-labelledby="orari-title" data-way="r-top end">
+  <section class="info" id="orari" aria-labelledby="orari-title">
+    <img class="sprig" src="img/rametto-foglie.webp" width="193" height="320" alt="" aria-hidden="true" loading="lazy">
     <div class="info__inner">
       <div class="info__hours">
-        <h2 id="orari-title">Orari</h2>
+        <h2 id="orari-title"><span class="nw">Orari<span class="perch" data-perch aria-hidden="true"></span></span></h2>
         <p class="status" id="status" data-state="unknown">Orari di apertura</p>
         <table class="hours">
           <caption class="sr-only">Orari settimanali del salone</caption>
@@ -162,7 +195,7 @@
       <div class="info__where">
         <h2>Dove siamo</h2>
         <address>Via Cavour 48<br>37062 Dossobuono (VR)</address>
-        <div class="info__actions" id="finale">
+        <div class="info__actions">
           <a class="btn btn--plum" href="https://wa.me/393714577008?text=Ciao%20Mariposa%2C%20vorrei%20prenotare%20un%20appuntamento">Prenota su WhatsApp</a>
           <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Acconciature%20Mariposa%20Via%20Cavour%2048%20Dossobuono">Apri in Google Maps</a>
         </div>
@@ -180,7 +213,7 @@
 <footer class="foot">
   <p class="foot__sign" aria-hidden="true">Mariposa</p>
   <p>Acconciature Mariposa di Matera Mariagrazia, Via Cavour 48, 37062 Dossobuono (VR).</p>
-  <p>Le foto dei lavori vengono dal profilo Instagram del salone.</p>
+  <p>Le foto dei lavori vengono dal profilo Instagram del salone. Le recensioni sono riportate dalla scheda Google del salone.</p>
   <p>Questa è una proposta di sito preparata da <a href="../../">Insegna</a>: non è il sito ufficiale dell'attività.</p>
 </footer>
 

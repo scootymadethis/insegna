@@ -31,64 +31,46 @@
   setInterval(renderStatus, 60000);
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---------- strisce orizzontali che scorrono con la pagina ---------- */
+  function hscroll(sec) {
+    var pin = sec.querySelector('.hs-pin');
+    var track = sec.querySelector('[data-track]');
+    if (!pin || !track) return;
+    var dist = 0;
+    function measure() {
+      sec.classList.remove('is-pinned');
+      sec.style.height = '';
+      track.style.transform = '';
+      dist = 0;
+      if (reduce.matches) return;
+      sec.classList.add('is-pinned');
+      dist = Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      if (dist < 40 || pin.scrollHeight > window.innerHeight + 2) {
+        sec.classList.remove('is-pinned');
+        dist = 0;
+        return;
+      }
+      sec.style.height = (pin.offsetHeight + dist) + 'px';
+      update();
+    }
+    function update() {
+      if (!dist) return;
+      var top = sec.getBoundingClientRect().top;
+      var p = Math.min(1, Math.max(0, -top / dist));
+      track.style.transform = 'translate3d(' + (-p * dist).toFixed(1) + 'px,0,0)';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    if (reduce.addEventListener) reduce.addEventListener('change', measure);
+    measure();
+  }
+  document.querySelectorAll('[data-hscroll]').forEach(hscroll);
+
   if (!window.Pizza) return;
 
-  /* ---------- hero: la Estate nasce mentre scorri ---------- */
-  var STEPS = [
-    ['L\'impasto', 'Acqua, sale, olio, lievito di birra, farina 00-0, grano e zucchero: gli ingredienti base della nostra pasta, scritti anche sul menu.'],
-    ['Il pomodoro', 'Si parte dal pomodoro, steso su tutto il disco.'],
-    ['La mozzarella', 'Poi la mozzarella, a pezzi, fino al bordo.'],
-    ['Il pomodoro a fette', 'Questa è la Estate, una delle nostre speciali: sopra va il pomodoro a fette.'],
-    ['Il forno a legna', 'Dentro il forno a legna, finché il cornicione non prende colore.'],
-    ['Il basilico', 'Ecco la Estate: pomodoro, mozzarella, pomodoro a fette e basilico. Più giù le trovi tutte.']
-  ];
-  var hero = document.querySelector('[data-hero]');
-  var heroPin = hero && hero.querySelector('.hero__pin');
-  var buildSvg = document.querySelector('[data-pizza="build"]');
-  var stepTitle = document.querySelector('[data-step-title]');
-  var stepText = document.querySelector('[data-step-text]');
-  var stepDots = Array.prototype.slice.call(document.querySelectorAll('.steps__dots li'));
-  var introTitle = stepTitle ? stepTitle.textContent : '';
-  var introText = stepText ? stepText.textContent : '';
-  var builder = null, currentStep = -2, range = 1;
-
-  if (buildSvg) {
-    builder = new window.Pizza(buildSvg);
-    builder.prepareBuild();
-  }
-
-  function setStep(i) {
-    if (i === currentStep) return;
-    currentStep = i;
-    if (i < 0) { stepTitle.textContent = introTitle; stepText.textContent = introText; }
-    else { stepTitle.textContent = STEPS[i][0]; stepText.textContent = STEPS[i][1]; }
-    stepDots.forEach(function (d, k) { d.classList.toggle('on', k <= i); });
-  }
-
-  function measureHero() {
-    if (!hero) return;
-    var pinned = !reduce.matches;
-    hero.classList.toggle('is-pinned', pinned);
-    range = Math.max(1, hero.offsetHeight - heroPin.offsetHeight);
-    updateHero();
-  }
-  function updateHero() {
-
-    if (!builder) return;
-    if (reduce.matches) { builder.build(1); setStep(-1); return; }
-    var top = hero.getBoundingClientRect().top;
-    var p = Math.min(1, Math.max(0, -top / range));
-    builder.build(p);
-    setStep(p < 0.04 ? -1 : Math.min(STEPS.length - 1, Math.floor((p - 0.04) / 0.96 * STEPS.length)));
-  }
-  // aggiornamento diretto: è leggero e non dipende da requestAnimationFrame
-  window.addEventListener('scroll', updateHero, { passive: true });
-  window.addEventListener('resize', measureHero);
-  window.addEventListener('load', measureHero);
-  if (reduce.addEventListener) reduce.addEventListener('change', measureHero);
-  measureHero();
-
-  /* ---------- scegli la tua pizza (menu da tavolo) ---------- */
+  /* ---------- il menu da tavolo ---------- */
   var MENU = [
     ['classiche', 'Marinara', 'rossa', [], ['aglio', 'origano'], 'Pomodoro, aglio, origano'],
     ['classiche', 'Margherita', 'rossa', ['mozzarella'], [], 'Pomodoro, mozzarella'],
@@ -140,10 +122,32 @@
     ['speciali', 'Idea del pizzaiolo', 'mistero', [], [], 'Il nome dice tutto: la sceglie il pizzaiolo.']
   ].map(function (r) { return { group: r[0], name: r[1], base: r[2], cheese: r[3], top: r[4], text: r[5] }; });
 
-  var pickSvg = document.querySelector('[data-pizza="pick"]');
+  /* ---------- la Estate che si compone mentre scorri ---------- */
+  var buildBox = document.querySelector('[data-build]');
+  var buildEl = document.querySelector('[data-pizza="build"]');
+  var builder = null;
+  if (buildEl) {
+    builder = new window.Pizza(buildEl);
+    var estate = MENU.filter(function (p) { return p.name === 'Estate'; })[0];
+    builder.prepareBuild(estate, 0.22, 0.98);
+  }
+  function updateBuild() {
+    if (!builder) return;
+    if (reduce.matches) { builder.build(1); return; }
+    var r = buildEl.getBoundingClientRect(), vh = window.innerHeight;
+    var start = vh * 0.98, end = vh * 0.38 - r.height / 2;
+    var p = Math.min(1, Math.max(0, (start - r.top) / (start - end)));
+    builder.build(p);
+  }
+  window.addEventListener('scroll', updateBuild, { passive: true });
+  window.addEventListener('resize', updateBuild);
+  updateBuild();
+
+  /* ---------- scegli la tua pizza ---------- */
+  var pickEl = document.querySelector('[data-pizza="pick"]');
   var nameEl = document.querySelector('[data-pick-name]');
   var ingrEl = document.querySelector('[data-pick-ingr]');
-  var picker = pickSvg ? new window.Pizza(pickSvg) : null;
+  var picker = pickEl ? new window.Pizza(pickEl) : null;
   var buttons = [];
 
   function choose(i, animate) {
@@ -151,23 +155,26 @@
     buttons.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
     nameEl.textContent = p.name;
     ingrEl.textContent = p.text;
-    var label = p.base === 'mistero' ? p.name + ': gli ingredienti sono una sorpresa' : 'Pizza ' + p.name + ': ' + p.text;
-    pickSvg.setAttribute('aria-label', label);
+    pickEl.setAttribute('aria-label', p.base === 'mistero' ? p.name + ': gli ingredienti sono una sorpresa' : 'Pizza ' + p.name + ': ' + p.text);
     picker.show(p, animate && !reduce.matches);
   }
 
   if (picker) {
     ['classiche', 'speciali'].forEach(function (g) {
-      var box = document.querySelector('[data-chips="' + g + '"]');
+      var list = document.querySelector('[data-list="' + g + '"]');
       MENU.forEach(function (p, i) {
         if (p.group !== g) return;
+        var li = document.createElement('li');
         var b = document.createElement('button');
         b.type = 'button';
-        b.className = 'chip' + (p.base === 'mistero' ? ' chip--mistero' : '');
-        b.textContent = p.name;
+        b.className = 'row' + (p.base === 'mistero' ? ' row--mistero' : '');
         b.setAttribute('aria-pressed', 'false');
+        var n = document.createElement('span'); n.className = 'row__name'; n.textContent = p.name;
+        var t = document.createElement('span'); t.className = 'row__ingr'; t.textContent = p.text;
+        b.appendChild(n); b.appendChild(t);
         b.addEventListener('click', function () { choose(i, true); });
-        box.appendChild(b);
+        li.appendChild(b);
+        list.appendChild(li);
         buttons[i] = b;
       });
     });
@@ -182,9 +189,9 @@
       last = i;
       if (reduce.matches) { choose(i, false); return; }
       spinning = true;
-      pickSvg.classList.add('is-spin');
+      pickEl.classList.add('is-spin');
       setTimeout(function () { choose(i, true); }, 260);
-      setTimeout(function () { pickSvg.classList.remove('is-spin'); spinning = false; }, 640);
+      setTimeout(function () { pickEl.classList.remove('is-spin'); spinning = false; }, 640);
     });
   }
 })();

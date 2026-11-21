@@ -70,6 +70,7 @@
   <section class="sere" id="sere" aria-labelledby="sere-title" data-sere>
     <div class="sere__pin">
       <header class="sere__head">
+        <img class="deco deco--vino" src="img/decoro-vino.webp" width="149" height="480" alt="" aria-hidden="true" loading="lazy" data-drift="0.6">
         <h2 id="sere-title" class="sere__title"><span>Le sere</span> <span class="sere__sub">della trattoria</span></h2>
         <p class="sere__lead">Da martedì a venerdì: quattro sere, quattro sapori tutti da scoprire e gustare.</p>
         <nav class="days" aria-label="Scegli la sera">
@@ -127,16 +128,46 @@
   <section class="classic" aria-labelledby="classic-title">
     <figure class="classic__photo">
       <img src="img/spaghetti-scoglio.jpg" width="1080" height="1080" alt="Spaghetti allo scoglio con cozze, gamberi e capasanta, in padella" loading="lazy">
+      <img class="deco deco--cozze" src="img/decoro-cozze-vongole.webp" width="480" height="351" alt="" aria-hidden="true" loading="lazy" data-drift="0.8">
     </figure>
     <div class="classic__text">
       <h2 id="classic-title">Spaghetti allo scoglio, un classico senza tempo.</h2>
       <p>Tra le recensioni che ci lasciate su Google è il piatto nominato più spesso, e da noi il pesce è di casa.</p>
-      <a class="link" href="https://www.google.com/maps?cid=18310711355188873876" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
+    </div>
+  </section>
+
+  <section class="voci" aria-labelledby="voci-title">
+    <div class="voci__in">
+      <header class="voci__head">
+        <h2 id="voci-title">Lo avete scritto voi.</h2>
+        <p class="voci__lead">4,3 su Google, da 590 recensioni.</p>
+      </header>
+      <ul class="voci__list">
+        <li class="voce">
+          <blockquote><p>Ottima trattoria con scelta sia di terra che di mare. Servizio giovane e affabile. Luogo conviviale e allegro. Ottimo rapporto qualità/prezzo.</p></blockquote>
+          <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i style="--fill:100%"></i></span><span><strong>Marco M.</strong> su Google</span></p>
+        </li>
+        <li class="voce">
+          <blockquote><p>Staff gentilissimo e cordiale, ti fa sentire a casa, piatti di pesce molto buoni cosi come gli antipasti e soprattutto i dolci che fanno loro</p></blockquote>
+          <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i style="--fill:100%"></i></span><span><strong>Emily B.</strong> su Google</span></p>
+        </li>
+        <li class="voce">
+          <blockquote><p>il piatto era abbondante, saporito, sugoso, ed era pieno di pesce</p></blockquote>
+          <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i style="--fill:100%"></i></span><span><strong>Stefano P.</strong> su Google</span></p>
+        </li>
+        <li class="voce">
+          <blockquote><p>Menù sempre diverso e gustoso. Personale accogliente e preparato.</p></blockquote>
+          <p class="voce__who"><span class="voce__stars" role="img" aria-label="4 stelle su 5"><i style="--fill:80%"></i></span><span><strong>Antonietta R.</strong> su Google</span></p>
+        </li>
+      </ul>
+      <a class="link voci__link" href="https://www.google.com/maps?cid=18310711355188873876" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
     </div>
   </section>
 
   <section class="menu" id="menu" aria-labelledby="menu-title">
     <div class="menu__card">
+      <img class="deco deco--limone" src="img/decoro-limone.webp" width="459" height="434" alt="" aria-hidden="true" loading="lazy" data-drift="1">
+      <img class="deco deco--prezzemolo" src="img/decoro-prezzemolo.webp" width="472" height="480" alt="" aria-hidden="true" loading="lazy" data-drift="-1">
       <img class="menu__logo" src="img/logo-da-emy.png" width="624" height="261" alt="" loading="lazy">
       <h2 id="menu-title" class="menu__title">Proposta dello chef</h2>
       <ul class="dishes">
@@ -161,25 +192,31 @@
       <h2 class="menu__side-title">Il menu cambia con le stagioni.</h2>
       <p>Qui trovi la nostra proposta attuale. Per sapere cosa c'è oggi, o per un piatto da portare a casa, chiamaci.</p>
       <a class="btn btn--red" href="tel:+390454686197">Chiama 045 468 6197</a>
+      <img class="deco deco--aglio" src="img/decoro-aglio.webp" width="383" height="391" alt="" aria-hidden="true" loading="lazy" data-drift="0.7">
     </div>
   </section>
 
-  <section class="gallery" aria-labelledby="gallery-title">
+  <section class="gallery" aria-labelledby="gallery-title" data-hscroll>
+    <div class="gallery__pin" data-pin>
     <div class="gallery__head">
       <h2 id="gallery-title">Noi ci mettiamo il cuore, voi portate l'appetito.</h2>
     </div>
-    <ul class="gallery__strip" tabindex="0" aria-label="Foto della trattoria, scorri di lato">
-      <li><figure><img src="img/chef-impiattamento.jpg" width="789" height="1000" alt="Lo chef impiatta un risotto direttamente dalla padella" loading="lazy"><figcaption>Dalla padella al piatto.</figcaption></figure></li>
-      <li><figure><img src="img/antipasto-mare.jpg" width="750" height="1000" alt="Piatto di antipasti di mare con ostriche, scampi e gamberi, accanto a un calice di bianco" loading="lazy"><figcaption>La brezza del mare e i prodotti di stagione, in un piatto.</figcaption></figure></li>
-      <li><figure><img src="img/bufala-crudo.jpg" width="1000" height="667" alt="Mozzarella di bufala con prosciutto crudo e pomodorini" loading="lazy"><figcaption>Bufala, crudo e pomodorini, per i giorni caldi.</figcaption></figure></li>
-      <li><figure><img src="img/spaghetti-vongole.jpg" width="825" height="1100" alt="Spaghetti alle vongole nel piatto azzurro" loading="lazy"><figcaption>Spaghetti alle vongole, il mercoledì a pranzo.</figcaption></figure></li>
-      <li><figure><img src="img/cocktail.jpg" width="750" height="1000" alt="Al bancone del bar si prepara un cocktail" loading="lazy"><figcaption>E per chiudere la cena, un cocktail al bancone.</figcaption></figure></li>
-      <li><figure><img src="img/ingresso.jpg" width="750" height="1000" alt="L'ingresso della trattoria con l'insegna Trattoria-Bar e le fioriere" loading="lazy"><figcaption>L'ingresso, in via Brigate Alpine 64.</figcaption></figure></li>
+    <div class="gallery__viewport">
+    <ul class="gallery__strip" data-htrack>
+      <li><figure><div class="frame"><img src="img/chef-impiattamento.jpg" width="789" height="1000" alt="Lo chef impiatta un risotto direttamente dalla padella" loading="lazy"></div><figcaption>Dalla padella al piatto.</figcaption></figure></li>
+      <li><figure><div class="frame"><img src="img/antipasto-mare.jpg" width="750" height="1000" alt="Piatto di antipasti di mare con ostriche, scampi e gamberi, accanto a un calice di bianco" loading="lazy"></div><figcaption>La brezza del mare e i prodotti di stagione, in un piatto.</figcaption></figure></li>
+      <li><figure><div class="frame"><img src="img/bufala-crudo.jpg" width="1000" height="667" alt="Mozzarella di bufala con prosciutto crudo e pomodorini" loading="lazy"></div><figcaption>Bufala, crudo e pomodorini, per i giorni caldi.</figcaption></figure></li>
+      <li><figure><div class="frame"><img src="img/spaghetti-vongole.jpg" width="825" height="1100" alt="Spaghetti alle vongole nel piatto azzurro" loading="lazy"></div><figcaption>Spaghetti alle vongole, il mercoledì a pranzo.</figcaption></figure></li>
+      <li><figure><div class="frame"><img src="img/cocktail.jpg" width="750" height="1000" alt="Al bancone del bar si prepara un cocktail" loading="lazy"></div><figcaption>E per chiudere la cena, un cocktail al bancone.</figcaption></figure></li>
+      <li><figure><div class="frame"><img src="img/ingresso.jpg" width="750" height="1000" alt="L'ingresso della trattoria con l'insegna Trattoria-Bar e le fioriere" loading="lazy"></div><figcaption>L'ingresso, in via Brigate Alpine 64.</figcaption></figure></li>
     </ul>
+    </div>
+    </div>
   </section>
 
   <section class="visit" id="orari" aria-labelledby="visit-title">
     <div class="visit__hours">
+      <img class="deco deco--rosmarino" src="img/decoro-rosmarino.webp" width="469" height="424" alt="" aria-hidden="true" loading="lazy" data-drift="0.6">
       <h2 id="visit-title">Orari</h2>
       <p class="status status--big" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Controlla gli orari qui sotto</span></p>
       <table class="hours" data-hours>

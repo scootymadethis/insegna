@@ -22,61 +22,56 @@
   };
 
   var DRAWERS = [
-    { id: "viti", label: "Viti e bulloni",
+    { id: "viti", obj: "img/obj-viti.webp", objAlt: "Bullone, vite, dado e rondella in acciaio", label: "Viti e bulloni",
       text: "Viti, bulloni, dadi e rondelle: la minuteria per montare, fissare e riparare.",
       list: ["Viti", "Bulloni", "Dadi", "Rondelle"],
       tip: "Porta il pezzo vecchio: confrontare filetto e lunghezza è il modo più rapido per trovare quello giusto.",
-      img: "img/viti.webp", alt: "Viti in acciaio ammucchiate, in primo piano",
       kw: ["vit", "bullon", "dado", "dadi", "rondell", "minuter", "chiod", "filett", "brugol"] },
-    { id: "fissaggi", label: "Tasselli e fissaggi",
+    { id: "fissaggi", obj: "img/obj-tasselli.webp", objAlt: "Tre tasselli in plastica grigia", label: "Tasselli e fissaggi",
       text: "Tasselli e sistemi di fissaggio per appendere e ancorare su muro pieno, forato o cartongesso.",
       brands: "Fischer",
       tip: "Dicci su che muro devi fissare e quanto pesa quello che appendi: il tassello giusto dipende da questo.",
       kw: ["tassell", "fischer", "ancorant", "fissagg", "ganci", "staff", "mensol", "cartongess", "append", "muro"] },
-    { id: "elettroutensili", label: "Elettroutensili",
+    { id: "elettroutensili", obj: "img/obj-trapano.webp", objAlt: "Trapano avvitatore a batteria giallo e nero", label: "Elettroutensili",
       text: "Trapani, levigatrici e altri elettroutensili, per il fai da te e per chi ci lavora tutti i giorni.",
       brands: "HiKOKI (ex Hitachi), Bosch, Black+Decker",
       tip: "Cerchi un modello preciso? Chiedi se è disponibile o se va ordinato.",
       kw: ["trapan", "avvitat", "levigat", "smerigliat", "flex", "seghett", "elettroutens", "hikoki", "hitachi", "bosch", "black", "decker", "punte", "dischi"] },
-    { id: "utensili", label: "Utensili a mano",
+    { id: "utensili", obj: "img/obj-metro.webp", objAlt: "Metro a nastro giallo", label: "Utensili a mano",
       text: "Gli attrezzi da avere in casa e in officina: martelli, cacciaviti, pinze, chiavi inglesi e metri.",
       tip: "Se non sai che attrezzo serve, raccontaci il lavoro da fare.",
-      img: "img/pannello.webp", alt: "Martelli, pinze e guanti appesi a un pannello forato",
       kw: ["martell", "cacciavit", "pinz", "tenagli", "ingles", "metro", "livell", "cutter", "taglierin", "utensil", "attrezz", "cassetta"] },
-    { id: "colori", label: "Colori e vernici",
+    { id: "colori", obj: "img/obj-vernice.webp", objAlt: "Barattolo di vernice rossa aperto", label: "Colori e vernici",
       text: "Smalti, vernici e colori, anche preparati al momento con il tintometro.",
       brands: "Paramatti",
       tip: "Per rifare un colore porta un campione: una scaglia di vernice o un pezzetto del materiale.",
-      img: "img/colori.webp", alt: "Barattoli di vernice aperti in tanti colori, visti dall'alto",
       kw: ["vernic", "smalt", "pittur", "color", "tinta", "tinte", "tintometr", "impregnant", "antiruggin", "pennell", "rull", "paramatti", "spray", "diluent"] },
-    { id: "giardino", label: "Giardino",
+    { id: "giardino", obj: "img/obj-forbici.webp", objAlt: "Forbici da potatura con manici rossi", label: "Giardino",
       text: "Attrezzi da giardino, macchine e motopompe per l'orto e il verde di casa.",
       brands: "Annovi Reverberi",
       tip: "Per una pompa o una macchina da giardino, dicci per cosa ti serve: ti aiutiamo a scegliere.",
-      img: "img/giardino.webp", alt: "Rastrello, pala e forcone gialli appoggiati a una parete di legno",
       kw: ["giardin", "tosaerb", "rastrell", "vanga", "pala", "potat", "cesoi", "irrigaz", "pomp", "motopomp", "irrorat", "annovi", "reverberi", "orto", "prato", "erba", "siepe"] },
-    { id: "idraulica", label: "Idraulica",
+    { id: "idraulica", obj: "img/obj-raccordi.webp", objAlt: "Raccordi idraulici in ottone", label: "Idraulica",
       text: "Materiale idraulico per le piccole riparazioni di casa e per i lavori più impegnativi.",
       tip: "Prima di smontare, fai una foto al pezzo montato: al banco ci aiuta a capire cosa serve.",
       kw: ["rubinett", "guarnizion", "raccord", "sifon", "tubo", "tubi", "flessibil", "teflon", "canapa", "scaric", "lavandin", "doccia", "idraulic", "valvol", "perdit", "acqua"] },
-    { id: "elettrico", label: "Materiale elettrico",
+    { id: "elettrico", obj: "img/obj-cavo.webp", objAlt: "Rotolo di cavo elettrico grigio", label: "Materiale elettrico",
       text: "Materiale elettrico per la casa: dalla prolunga alla lampadina da cambiare.",
       tip: "Porta la lampadina o il pezzo da sostituire: attacco e misura si vedono subito.",
       kw: ["lampadin", "presa", "prese", "spina", "interrutt", "prolung", "ciabatt", "cavo", "cavi", "filo", "pile", "pila", "batteri", "torcia", "elettric", "led"] },
-    { id: "chiavi", label: "Chiavi",
+    { id: "chiavi", obj: "img/obj-chiavi.webp", objAlt: "Due chiavi, una argentata e una dorata", label: "Chiavi",
       text: "Copie delle chiavi al banco. Per le chiavi elettroniche chiedici se la tua si può duplicare.",
       tip: "Porta la chiave originale, non una copia: il duplicato viene più preciso.",
-      img: "img/chiavi.webp", alt: "Un mazzo di chiavi su un tavolo di legno",
       kw: ["chiave", "chiavi", "copia", "copie", "duplic", "doppion"] },
-    { id: "antinfortunistica", label: "Antinfortunistica",
+    { id: "antinfortunistica", obj: "img/obj-scarpa.webp", objAlt: "Scarpa antinfortunistica nera e gialla", label: "Antinfortunistica",
       text: "Scarpe antinfortunistiche e attrezzature per lavorare in sicurezza.",
       tip: "Per le scarpe chiedi quali taglie ci sono prima di passare.",
       kw: ["scarp", "antinfortun", "guant", "occhial", "mascherin", "cuffi", "elmett", "casco", "sicurezz", "abbigliam", "lavoro"] },
-    { id: "edilizia", label: "Edilizia",
+    { id: "edilizia", obj: "img/obj-malta.webp", objAlt: "Sacco di malta aperto", label: "Edilizia",
       text: "Materiale edile per lavori e riparazioni in casa e in cantiere.",
       tip: "Per quantità grandi chiamaci prima di venire.",
       kw: ["cement", "malta", "stucc", "silicon", "colla", "schium", "cazzuol", "gesso", "mattoni", "edil", "intonac"] },
-    { id: "casa", label: "Casa e fai da te",
+    { id: "casa", obj: "img/obj-pennello.webp", objAlt: "Pennello con manico in legno", label: "Casa e fai da te",
       text: "Articoli per la casa e materiali per il fai da te.",
       tip: "Non trovi la voce giusta? Scrivici cosa ti serve: ti diciamo se ce l'abbiamo.",
       kw: ["casa", "pulizi", "detergent", "scopa", "secchi", "sacchi", "bricolag", "hobby", "fai da te"] }
@@ -97,7 +92,10 @@
     b.setAttribute("aria-controls", "tray");
     b.dataset.id = d.id;
     b.style.setProperty("--i", DRAWERS.indexOf(d));
-    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[d.id] + "</svg>" +
+    var face = d.obj
+      ? '<img src="' + d.obj + '" alt="" width="200" height="200" loading="lazy">'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[d.id] + "</svg>";
+    b.innerHTML = '<span class="drawer__win" aria-hidden="true">' + face + "</span>" +
       '<span class="drawer__label">' + d.label + "</span>" +
       '<span class="drawer__handle" aria-hidden="true"></span>';
     b.addEventListener("click", function () { openDrawer(d.id, true); });
@@ -122,7 +120,8 @@
 
     var ask = lastQuery ? "Ciao! Cerco: " + lastQuery + ". Ce l'avete?" : "Ciao! Cerco qualcosa nel reparto " + d.label.toLowerCase() + ": ";
     var html = "";
-    if (d.img) html += '<figure class="tray__photo"><img src="' + d.img + '" alt="' + esc(d.alt) + '" width="1400" height="934"></figure>';
+    if (d.obj) html += '<figure class="tray__obj"><img src="' + d.obj + '" alt="' + esc(d.objAlt || "") + '" width="600" height="600"></figure>';
+    else if (d.img) html += '<figure class="tray__photo"><img src="' + d.img + '" alt="' + esc(d.alt) + '" width="1400" height="934"></figure>';
     html += '<p class="tray__kicker">Cassetto aperto</p>';
     html += "<h3>" + esc(d.label) + "</h3>";
     html += '<p class="tray__text">' + esc(d.text) + "</p>";
@@ -258,6 +257,82 @@
       });
     }, { threshold: 0.45 });
     io.observe(drawersEl);
+  }
+
+  /* ---------- Effetti guidati dallo scorrimento ---------- */
+  var scenes = [];
+  var ticking = false;
+  var lastY = window.scrollY;
+  function frame() {
+    ticking = false;
+    var vh = window.innerHeight;
+    var y = window.scrollY;
+    var dy = y - lastY;
+    lastY = y;
+    for (var i = 0; i < scenes.length; i++) scenes[i](vh, y, dy);
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+
+  if (!reduceMotion) {
+    /* la foto del titolo scorre più lenta della pagina */
+    var heroBg = document.querySelector(".hero__bg");
+    if (heroBg) {
+      scenes.push(function (vh, y) {
+        if (y > vh * 1.4) return;
+        heroBg.style.setProperty("--hy", (y * 0.28).toFixed(1) + "px");
+      });
+    }
+
+    /* i marchi passano come cartellini su una rotaia */
+    var marchi = document.querySelector(".marchi");
+    var rail = document.querySelector("[data-rail-track]");
+    if (marchi && rail) {
+      marchi.classList.add("is-rail");
+      scenes.push(function (vh) {
+        var r = marchi.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var vw = document.documentElement.clientWidth;
+        var pad = vw >= 900 ? Math.max(40, (vw - 1184) / 2) : 20;
+        var span = rail.scrollWidth - vw + pad * 2;
+        var p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+        rail.style.setProperty("--rx", (pad - p * Math.max(span, 0) - (span < 0 ? span / 2 : 0)).toFixed(1) + "px");
+      });
+    }
+
+    /* i cartellini delle recensioni oscillano quando la pagina si muove */
+    var hangs = Array.prototype.slice.call(document.querySelectorAll(".hang[data-swing]"));
+    if (hangs.length) {
+      var angle = 0, vel = 0, target = 0, swinging = false;
+      var paint = function () {
+        hangs.forEach(function (h) {
+          var dir = parseFloat(h.getAttribute("data-swing")) || 1;
+          h.style.setProperty("--swing", (angle * dir).toFixed(2) + "deg");
+        });
+      };
+      var spring = function () {
+        // molla smorzata verso target, poi verso zero
+        vel += (target - angle) * 0.12;
+        vel *= 0.82;
+        angle += vel;
+        target *= 0.85;
+        paint();
+        if (Math.abs(angle) > 0.02 || Math.abs(vel) > 0.02 || Math.abs(target) > 0.02) requestAnimationFrame(spring);
+        else { angle = 0; vel = 0; target = 0; paint(); swinging = false; }
+      };
+      var board = document.querySelector("[data-board]");
+      scenes.push(function (vh, y, dy) {
+        var r = board.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        target = clamp(target + dy * 0.05, -5, 5);
+        if (!swinging) { swinging = true; requestAnimationFrame(spring); }
+      });
+    }
+  }
+  if (scenes.length) {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    frame();
   }
 
   /* ---------- Orari: aperto ora / chiuso, sull'ora italiana ---------- */

@@ -2,6 +2,8 @@
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var desktopMQ = window.matchMedia("(min-width: 800px)");
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
   /* Prova orari: ?ora=12:30&giorno=3 (0 = domenica) */
   var demo = (function () {
@@ -82,61 +84,119 @@
     // Conto alla rovescia per Natale
     var cd = document.querySelector("[data-countdown]");
     if (cd) {
+      var num = cd.querySelector("[data-cd-num]"), txt = cd.querySelector("[data-cd-text]");
       var today = Date.UTC(now.y, now.m - 1, now.d);
       var xmas = Date.UTC(now.y, 11, 25);
       var diff = Math.round((xmas - today) / 86400000);
-      if (diff > 1 && diff <= 60) { cd.textContent = "Mancano " + diff + " giorni a Natale"; cd.hidden = false; }
-      else if (diff === 1) { cd.textContent = "Domani è Natale"; cd.hidden = false; }
+      if (diff > 1 && diff <= 60) { num.textContent = diff; txt.textContent = "giorni a Natale"; cd.hidden = false; }
+      else if (diff === 1) { num.textContent = ""; txt.textContent = "Domani è Natale"; cd.hidden = false; }
       else cd.hidden = true;
     }
   }
   paintStatus();
   setInterval(paintStatus, 60000);
 
-  /* ---------- Hero: "qualcosa di ..." ---------- */
-  var pill = document.querySelector(".pill");
-  if (pill && !reduceMotion) {
-    var imgs = pill.querySelectorAll("img");
-    var idx = 0;
-    setInterval(function () {
-      if (document.hidden) return;
-      var cur = imgs[idx];
-      idx = (idx + 1) % imgs.length;
-      var nxt = imgs[idx];
-      cur.classList.remove("is-on");
-      cur.classList.add("is-off");
-      nxt.classList.remove("is-off");
-      nxt.classList.add("is-on");
-      setTimeout(function () { cur.classList.remove("is-off"); }, 650);
-    }, 2000);
+  /* ---------- Scorrimento: un solo ciclo per tutte le scene ---------- */
+  var scenes = [];
+  var ticking = false;
+  function frame() {
+    ticking = false;
+    var vh = window.innerHeight;
+    for (var i = 0; i < scenes.length; i++) scenes[i](vh);
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+
+  /* Foto del titolo: le due colonne scorrono a velocità diverse */
+  var gallery = document.querySelector("[data-hero-gallery]");
+  if (gallery && !reduceMotion) {
+    var cols = gallery.querySelectorAll(".hg-col");
+    scenes.push(function () {
+      var y = window.scrollY;
+      var on = desktopMQ.matches && y < window.innerHeight * 1.5;
+      cols.forEach(function (c) {
+        var sp = parseFloat(c.getAttribute("data-speed")) || 0;
+        c.style.setProperty("--py", on ? (-y * sp).toFixed(1) + "px" : "0px");
+      });
+    });
   }
 
-  /* ---------- Il panettone che lievita ---------- */
+  /* Il panettone che lievita: tre stadi guidati dallo scorrimento */
   var sec = document.querySelector(".lievita");
-  if (sec && !reduceMotion) {
+  if (sec) {
     var steps = sec.querySelectorAll(".step");
-    var ticking = false;
+    var stageImgs = sec.querySelectorAll(".stage-img");
+    var dots = sec.querySelectorAll(".dial-dot");
     var current = -1;
-    var ease = function (t) { return 1 - Math.pow(1 - t, 2.2); };
-    var update = function () {
-      ticking = false;
-      var r = sec.getBoundingClientRect();
-      var total = sec.offsetHeight - window.innerHeight;
-      var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
-      var rise = ease(Math.min(1, p / 0.82));
-      sec.style.setProperty("--rise", rise.toFixed(4));
-      var s = p < 0.34 ? 0 : p < 0.68 ? 1 : 2;
-      if (s !== current) {
-        current = s;
-        steps.forEach(function (el, i) { el.classList.toggle("is-on", i === s); });
-      }
+    // quanto è visibile ogni stadio, in funzione dell'avanzamento p (0..1)
+    var fade = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
+    var smooth = function (t) { return t * t * (3 - 2 * t); };
+    var setStep = function (s) {
+      if (s === current) return;
+      current = s;
+      steps.forEach(function (el, i) { el.classList.toggle("is-on", i === s); });
     };
-    var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    if (!reduceMotion) {
+      scenes.push(function (vh) {
+        var r = sec.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) return;
+        var total = sec.offsetHeight - vh;
+        var p = total > 0 ? clamp(-r.top / total, 0, 1) : 1;
+        var a = smooth(fade(p, .26, .41));   // da impasto a lievitato
+        var b = smooth(fade(p, .59, .74));   // da lievitato a cotto
+        var o = [1 - a, a * (1 - b), b];
+        stageImgs.forEach(function (img, i) { img.style.setProperty("--o", o[i].toFixed(3)); });
+        sec.style.setProperty("--p", p.toFixed(4));
+        dots.forEach(function (d, i) { d.classList.toggle("is-on", p >= [0, .335, .665][i]); });
+        setStep(p < .335 ? 0 : p < .665 ? 1 : 2);
+      });
+    } else {
+      sec.style.setProperty("--p", "1");
+      dots.forEach(function (d) { d.classList.add("is-on"); });
+    }
+  }
+
+  /* Una giornata al Gioia: il binario scorre in orizzontale mentre la pagina scende */
+  var gio = document.querySelector("[data-hscroll]");
+  if (gio && !reduceMotion) {
+    var track = gio.querySelector("[data-htrack]");
+    var fill = gio.querySelector("[data-hfill]");
+    var dist = 0;
+    gio.classList.add("is-h");
+    var measure = function () {
+      dist = Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      gio.style.height = (window.innerHeight + dist) + "px";
+    };
+    measure();
+    window.addEventListener("load", function () { measure(); onScroll(); });
+    window.addEventListener("resize", function () { measure(); onScroll(); });
+    scenes.push(function (vh) {
+      var r = gio.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 2) return;
+      var total = gio.offsetHeight - vh;
+      var p = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
+      track.style.setProperty("--hx", (-p * dist).toFixed(1) + "px");
+      if (fill) fill.style.setProperty("--hp", p.toFixed(4));
+    });
+  }
+
+  /* Recensioni: i biglietti si muovono appena, ognuno al suo ritmo */
+  var revs = document.querySelectorAll(".rev[data-drift]");
+  if (revs.length && !reduceMotion) {
+    scenes.push(function (vh) {
+      revs.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var k = parseFloat(el.getAttribute("data-drift")) || 0;
+        var d = (r.top + r.height / 2 - vh / 2);
+        el.style.setProperty("--dy", (d * k).toFixed(1) + "px");
+      });
+    });
+  }
+
+  if (scenes.length) {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    update();
-  } else if (sec) {
-    sec.style.setProperty("--rise", "1");
+    frame();
   }
 
   /* ---------- I lievitati ---------- */
@@ -179,7 +239,6 @@
       var d = LV[id];
       if (!d) return;
       chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c.getAttribute("data-id") === id)); });
-      q("bigname").textContent = d.name;
       q("name").textContent = d.name;
       q("tag").textContent = d.tag;
       q("weight").textContent = d.w;
@@ -200,7 +259,14 @@
       swapTimer = setTimeout(apply, 180);
     };
     chips.forEach(function (c) {
-      c.addEventListener("click", function () { show(c.getAttribute("data-id")); });
+      c.addEventListener("click", function () {
+        show(c.getAttribute("data-id"));
+        var row = c.parentElement;
+        if (row.scrollWidth > row.clientWidth) {
+          var left = c.offsetLeft - (row.clientWidth - c.offsetWidth) / 2;
+          row.scrollTo({ left: left, behavior: reduceMotion ? "auto" : "smooth" });
+        }
+      });
     });
     // precarica le foto dopo il caricamento
     window.addEventListener("load", function () {

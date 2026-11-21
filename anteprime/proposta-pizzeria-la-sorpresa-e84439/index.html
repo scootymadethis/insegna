@@ -18,125 +18,207 @@
 
 <p class="proposal">Proposta di <a href="../../">Insegna</a> per Pizzeria La Sorpresa: non è il sito ufficiale dell'attività</p>
 
+<header class="nav">
+  <div class="nav__in">
+    <a class="nav__mark" href="#contenuto">La Sorpresa</a>
+    <nav class="nav__links" aria-label="Sezioni della pagina">
+      <a href="#pizze">Le pizze</a>
+      <a href="#servizi">Servizi</a>
+      <a href="#recensioni">Recensioni</a>
+      <a href="#orari">Orari e dove</a>
+    </nav>
+    <a class="nav__call" href="tel:+39045986895">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+      <span>Chiama</span>
+    </a>
+  </div>
+</header>
+
 <main id="contenuto">
 
-  <section class="hero" data-hero aria-labelledby="hero-title">
-    <div class="hero__pin">
-      <header class="top">
-        <a class="top__mark" href="#contenuto">La Sorpresa</a>
-        <p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Tutti i giorni 11–14:30 e 18–23</span></p>
-        <a class="top__call" href="tel:+39045986895" aria-label="Chiama la pizzeria, 045 986895">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
-          <span>Chiama</span>
-        </a>
-      </header>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__in">
+      <div class="hero__text">
+        <h1 id="hero-title" class="hero__title"><span class="hero__pre">Birreria Pizzeria</span> <span class="hero__name">La Sorpresa</span></h1>
+        <p class="hero__lead">Pizza con forno a legna in via Cavour 14, a Dossobuono, vicino all'aeroporto. Aperti tutti i giorni a pranzo e a cena: al tavolo, all'aperto o da portare a casa.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--yolk" href="tel:+39045986895">Chiama 045 986895</a>
+          <a class="btn btn--line" href="#pizze">Scegli la pizza</a>
+        </div>
+        <ul class="hero__meta">
+          <li><a class="hero__rating" href="https://www.google.com/maps?cid=3643396291606491888" target="_blank" rel="noopener"><span class="star" aria-hidden="true">★</span> <b>4,2</b> su Google, 407 recensioni</a></li>
+          <li><p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Tutti i giorni 11–14:30 e 18–23</span></p></li>
+        </ul>
+      </div>
+      <figure class="hero__photo">
+        <img src="img/sorpresa-hero.webp" width="880" height="1100" alt="Una pizza margherita sottile su una tovaglia a quadretti bianchi e blu, con un boccale di birra chiara" fetchpriority="high">
+      </figure>
+    </div>
+  </section>
 
-      <div class="hero__grid">
-        <div class="hero__words">
-          <p class="hero__kicker">Birreria Pizzeria a Dossobuono</p>
-          <h1 id="hero-title" class="hero__title"><span>La</span> <span>Sorpresa</span></h1>
-          <div class="steps" aria-live="polite">
-            <p class="steps__title" data-step-title>Pizza con forno a legna</p>
-            <p class="steps__text" data-step-text>In via Cavour 14, aperti tutti i giorni a pranzo e a cena. Scorri: la pizza nasce qui sotto.</p>
-            <ol class="steps__dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+  <section class="fresh" aria-labelledby="fresh-title">
+    <div class="fresh__in">
+      <div class="fresh__text">
+        <h2 id="fresh-title" class="fresh__title">La freschezza di ogni singolo ingrediente è ciò che ci contraddistingue.</h2>
+        <p class="fresh__p">Ci trovi in via Cavour 14, a Dossobuono, vicino all'aeroporto. La pizza la mangi al tavolo, all'aperto o a casa tua: chiamaci e passa a ritirarla.</p>
+        <p class="fresh__p">La base della nostra pasta è scritta anche sul menu: acqua, sale, olio, lievito di birra, farina 00-0, grano e zucchero.</p>
+        <figure class="quote">
+          <blockquote><p>«La pizza ottima come sempre,con ingredienti freschi.»</p></blockquote>
+          <figcaption>Faby, su Google</figcaption>
+        </figure>
+      </div>
+      <div class="fresh__show" data-build>
+        <div class="plate plate--big">
+          <div class="pizza" data-pizza="build" role="img" aria-label="La pizza Estate: pomodoro, mozzarella, pomodoro a fette e basilico"></div>
+        </div>
+        <p class="fresh__cap"><b>Estate</b>, una delle nostre speciali: pomodoro, mozzarella, pomodoro a fette e basilico.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu" id="pizze" aria-labelledby="menu-title">
+    <div class="menu__in">
+      <div class="menu__head">
+        <h2 id="menu-title" class="menu__title">Quale pizza stasera?</h2>
+        <p>Tocca una pizza del menu e la vedi prendere forma. Oppure lasciati sorprendere: è il nostro nome, del resto.</p>
+        <button class="btn btn--cobalt" type="button" data-random>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 3l4 4-4 4V8h-2.6l-2.5 3.2-1.3-1.6L13.4 6H17V3zM3 6h4.6l8.8 11H17v-3l4 4-4 4v-3h-1.6l-8.8-11H3V6zm0 12h4.6l2.6-3.3 1.3 1.6-3 3.7H3v-2z"/></svg>
+          Sorprendimi
+        </button>
+      </div>
+      <div class="menu__body">
+        <div class="menu__stage">
+          <div class="plate plate--pick">
+            <div class="pizza" data-pizza="pick" role="img" aria-label="Pizza Margherita"></div>
+          </div>
+          <div class="menu__info" aria-live="polite">
+            <h3 class="menu__name" data-pick-name>Margherita</h3>
+            <p class="menu__ingr" data-pick-ingr>Pomodoro, mozzarella</p>
           </div>
         </div>
-        <div class="hero__stage">
-          <div class="cloth" aria-hidden="true"></div>
-          <svg class="pz" data-pizza="build" viewBox="0 0 400 400" role="img" aria-label="Una pizza Estate che prende forma: pomodoro, mozzarella, pomodoro a fette e basilico"></svg>
+        <div class="menu__lists">
+          <div class="menu__group">
+            <h3 class="menu__group-title">Le classiche</h3>
+            <ul class="menu__list" data-list="classiche"></ul>
+          </div>
+          <div class="menu__group">
+            <h3 class="menu__group-title">Le speciali</h3>
+            <ul class="menu__list" data-list="speciali"></ul>
+          </div>
+          <p class="menu__note">Nomi e ingredienti sono quelli del nostro menu da tavolo, dove trovi anche la panara e il calzone per due o tre persone. Per i prezzi aggiornati e le novità chiamaci allo <a href="tel:+39045986895">045 986895</a>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="intro" aria-label="Chi siamo">
-    <div class="intro__in">
-      <p class="intro__big">La freschezza di ogni singolo ingrediente è ciò che ci contraddistingue.</p>
-      <p class="intro__text">Ci trovi in via Cavour 14, a Dossobuono, vicino all'aeroporto. La pizza la mangi al tavolo, all'aperto o a casa tua: chiamaci e passa a ritirarla.</p>
-      <a class="rating" href="https://www.google.com/maps?cid=3643396291606491888" target="_blank" rel="noopener">
-        <span class="rating__num">4,2</span>
-        <span class="rating__stars" aria-hidden="true"><i style="--fill:84%"></i></span>
-        <span class="rating__txt">su Google, da 407 recensioni</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="picker" id="pizze" aria-labelledby="picker-title">
-    <div class="picker__head">
-      <h2 id="picker-title">Quale pizza stasera?</h2>
-      <p>Tocca un nome e la pizza cambia sotto i tuoi occhi. Oppure lasciati sorprendere: è il nostro nome, del resto.</p>
-      <button class="btn btn--yolk" type="button" data-random>
-        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 3l4 4-4 4V8h-2.6l-2.5 3.2-1.3-1.6L13.4 6H17V3zM3 6h4.6l8.8 11H17v-3l4 4-4 4v-3h-1.6l-8.8-11H3V6zm0 12h4.6l2.6-3.3 1.3 1.6-3 3.7H3v-2z"/></svg>
-        Sorprendimi
-      </button>
-    </div>
-    <div class="picker__body">
-      <div class="picker__stage">
-        <div class="picker__plate">
-          <div class="cloth" aria-hidden="true"></div>
-          <svg class="pz" data-pizza="pick" viewBox="0 0 400 400" role="img" aria-label="Pizza Margherita"></svg>
-        </div>
-        <div class="picker__info" aria-live="polite">
-          <h3 class="picker__name" data-pick-name>Margherita</h3>
-          <p class="picker__ingr" data-pick-ingr>Pomodoro, mozzarella</p>
-        </div>
+  <section class="strip" aria-labelledby="strip-title" data-hscroll>
+    <div class="hs-pin">
+      <div class="strip__head">
+        <h2 id="strip-title" class="strip__title">Dal forno e dalla cucina</h2>
+        <p>E ogni tanto un dolce appena sfornato, che annunciamo sulla nostra <a href="https://www.facebook.com/421141817943989" target="_blank" rel="noopener">pagina Facebook</a>.</p>
       </div>
-      <div class="picker__lists">
-        <h3 class="picker__group">Le classiche</h3>
-        <div class="chips" data-chips="classiche"></div>
-        <h3 class="picker__group">Le speciali</h3>
-        <div class="chips" data-chips="speciali"></div>
-        <p class="picker__note">Nomi e ingredienti sono quelli del nostro menu da tavolo, dove trovi anche la panara e il calzone per due o tre persone. Per i prezzi aggiornati e le novità chiamaci allo <a href="tel:+39045986895">045 986895</a>.</p>
+      <div class="hs-window">
+        <ul class="hs-track" data-track>
+          <li class="shot shot--wide"><figure><img src="img/pizza-crudo-rucola.jpg" width="1022" height="578" alt="Pizza con prosciutto crudo, rucola, scaglie di grana e pomodorini" loading="lazy"><figcaption>Crudo, rucola, scaglie di grana e pomodorini.</figcaption></figure></li>
+          <li class="shot shot--sq"><figure><img src="img/pizza-patate-pancetta.jpg" width="960" height="845" alt="Pizza con patate, pancetta arrotolata e parmigiano" loading="lazy"><figcaption>Patate, pancetta arrotolata e una spolverata di buon parmigiano.</figcaption></figure></li>
+          <li class="shot"><figure><img src="img/crostata-amalfitana.jpg" width="675" height="900" alt="Crostata amalfitana con amarene, nella teglia" loading="lazy"><figcaption>Crostata amalfitana, per carnevale.</figcaption></figure></li>
+          <li class="shot"><figure><img src="img/zeppolone.jpg" width="675" height="900" alt="Zeppolone di San Giuseppe con crema chantilly e fragole" loading="lazy"><figcaption>Zeppolone di San Giuseppe con crema chantilly e fragole.</figcaption></figure></li>
+          <li class="shot"><figure><img src="img/crostata-mele-noci.jpg" width="675" height="900" alt="Crostata di mele e noci appena sfornata" loading="lazy"><figcaption>Crostata mele e noci, appena sfornata.</figcaption></figure></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="oven" aria-labelledby="oven-title">
-    <h2 id="oven-title" class="oven__title">Dal forno e dalla cucina</h2>
-    <div class="oven__grid">
-      <figure class="oven__wide">
-        <img src="img/pizza-crudo-rucola.jpg" width="1022" height="578" alt="Pizza con prosciutto crudo, rucola, scaglie di grana e pomodorini" loading="lazy">
-        <figcaption>Crudo, rucola, scaglie di grana e pomodorini.</figcaption>
-      </figure>
-      <figure>
-        <img src="img/pizza-patate-pancetta.jpg" width="960" height="845" alt="Pizza con patate, pancetta arrotolata e parmigiano" loading="lazy">
-        <figcaption>Patate, pancetta arrotolata e una spolverata di buon parmigiano.</figcaption>
-      </figure>
+  <section class="services" id="servizi" aria-labelledby="services-title">
+    <div class="services__in">
+      <h2 id="services-title" class="services__title">Al tavolo, all'aperto o a casa tua.</h2>
+      <div class="services__grid">
+        <article class="svc svc--home">
+          <h3>Da portare a casa</h3>
+          <p>Chiamaci, ordina e passa a ritirare la pizza in via Cavour 14.</p>
+          <div class="svc__btns">
+            <a class="btn btn--yolk" href="tel:+39045986895">Chiama 045 986895</a>
+            <a class="btn btn--line" href="tel:+39045513020">045 513020</a>
+          </div>
+        </article>
+        <article class="svc">
+          <h3>Forno a legna</h3>
+          <p>La pizza esce dal forno a legna. Nelle recensioni su Google tornano spesso due parole: croccante e cordiale.</p>
+        </article>
+        <article class="svc">
+          <h3>In sala</h3>
+          <p>Una pizzeria di famiglia, con le tovaglie a quadri bianchi e blu.</p>
+        </article>
+        <article class="svc">
+          <h3>All'aperto</h3>
+          <p>Ci sono anche i tavoli fuori, per la pizza all'aria aperta.</p>
+        </article>
+        <article class="svc">
+          <h3>Anche il giovedì</h3>
+          <p>Aperti tutti i giorni, dal lunedì alla domenica: a pranzo 11–14:30, a cena 18–23.</p>
+        </article>
+      </div>
     </div>
-    <div class="sweets">
-      <h3 class="sweets__title">E ogni tanto, un dolce appena sfornato</h3>
-      <ul class="sweets__list">
-        <li><figure><img src="img/crostata-amalfitana.jpg" width="675" height="900" alt="Crostata amalfitana con amarene, nella teglia" loading="lazy"><figcaption>Crostata amalfitana, per carnevale.</figcaption></figure></li>
-        <li><figure><img src="img/zeppolone.jpg" width="675" height="900" alt="Zeppolone di San Giuseppe con crema chantilly e fragole" loading="lazy"><figcaption>Zeppolone di San Giuseppe con crema chantilly e fragole.</figcaption></figure></li>
-        <li><figure><img src="img/crostata-mele-noci.jpg" width="675" height="900" alt="Crostata di mele e noci appena sfornata" loading="lazy"><figcaption>Crostata mele e noci, appena sfornata.</figcaption></figure></li>
+  </section>
+
+  <section class="reviews" id="recensioni" aria-labelledby="reviews-title">
+    <div class="reviews__in">
+      <h2 id="reviews-title" class="reviews__title">4,2 su Google, da 407 recensioni.</h2>
+      <ul class="notes">
+        <li class="note">
+          <figure>
+            <p class="note__stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Una pizzeria gestita a livello familiare, dove il personale è cordiale e disponibile. Gli ingredienti sono di qualità la birra è buona e i dolci fatti in casa»</p></blockquote>
+            <figcaption>Daniela V., su Google</figcaption>
+          </figure>
+        </li>
+        <li class="note">
+          <figure>
+            <p class="note__stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«per quanto riguarda il cibo, devo dire ottima., spessore fino con buoni ingredienti.»</p></blockquote>
+            <figcaption>Roberto, su Google</figcaption>
+          </figure>
+        </li>
+        <li class="note">
+          <figure>
+            <p class="note__stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Il locale non è molto grande,ma comunque accogliente. I prezzi sono più che onesti. Carino lo spazio bimbi al piano terra.»</p></blockquote>
+            <figcaption>Faby, su Google</figcaption>
+          </figure>
+        </li>
+        <li class="note">
+          <figure>
+            <p class="note__stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«locale accogliente e personale caloroso è disponibile»</p></blockquote>
+            <figcaption>Antonio M., su Google</figcaption>
+          </figure>
+        </li>
       </ul>
-      <p class="sweets__note">Li annunciamo sulla nostra <a href="https://www.facebook.com/421141817943989" target="_blank" rel="noopener">pagina Facebook</a>.</p>
+      <a class="reviews__link" href="https://www.google.com/maps?cid=3643396291606491888" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
     </div>
   </section>
 
   <section class="open" id="orari" aria-labelledby="open-title">
-    <h2 id="open-title" class="open__title"><span>Aperti tutti i giorni.</span> <span>Anche il giovedì.</span></h2>
-    <div class="open__grid">
-      <div class="open__hours">
-        <p class="status status--big" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Controlla gli orari</span></p>
-        <dl class="hours">
-          <div><dt>Pranzo</dt><dd>11:00–14:30</dd></div>
-          <div><dt>Cena</dt><dd>18:00–23:00</dd></div>
-        </dl>
-        <p class="open__small">Dal lunedì alla domenica, sempre con gli stessi orari.</p>
-      </div>
-      <div class="open__where">
-        <address>Via Cavour 14<br>37069 Dossobuono, Villafranca di Verona (VR)</address>
-        <div class="open__btns">
-          <a class="btn btn--yolk" href="tel:+39045986895">Chiama 045 986895</a>
-          <a class="btn btn--ghost" href="https://www.google.com/maps?cid=3643396291606491888" target="_blank" rel="noopener">Apri in Google Maps</a>
+    <div class="open__in">
+      <h2 id="open-title" class="open__title"><span>Aperti tutti i giorni.</span> <span>Anche il giovedì.</span></h2>
+      <div class="open__grid">
+        <div class="open__hours">
+          <p class="status status--big" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Controlla gli orari</span></p>
+          <dl class="hours">
+            <div><dt>Pranzo</dt><dd>11:00–14:30</dd></div>
+            <div><dt>Cena</dt><dd>18:00–23:00</dd></div>
+          </dl>
+          <p class="open__small">Dal lunedì alla domenica, sempre con gli stessi orari.</p>
         </div>
-        <p class="open__alt">Altro numero: <a href="tel:+39045513020">045 513020</a></p>
-        <ul class="facts">
-          <li>Al tavolo, all'aperto o da asporto.</li>
-          <li>Nelle recensioni su Google tornano spesso due parole: croccante e cordiale.</li>
-        </ul>
-        <p class="social"><a href="https://www.facebook.com/421141817943989" target="_blank" rel="noopener">Facebook</a> <a href="mailto:pizzerialasorpresa@gmail.com">pizzerialasorpresa@gmail.com</a></p>
+        <div class="open__where">
+          <address>Via Cavour 14<br>37069 Dossobuono, Villafranca di Verona (VR)</address>
+          <div class="open__btns">
+            <a class="btn btn--cobalt" href="tel:+39045986895">Chiama 045 986895</a>
+            <a class="btn btn--ghost" href="https://www.google.com/maps?cid=3643396291606491888" target="_blank" rel="noopener">Apri in Google Maps</a>
+          </div>
+          <p class="open__alt">Altro numero: <a href="tel:+39045513020">045 513020</a></p>
+          <p class="social"><a href="https://www.facebook.com/421141817943989" target="_blank" rel="noopener">Facebook</a> <a href="mailto:pizzerialasorpresa@gmail.com">pizzerialasorpresa@gmail.com</a></p>
+        </div>
       </div>
     </div>
   </section>
@@ -148,7 +230,7 @@
   <div>
     <p class="foot__name">Birreria Pizzeria La Sorpresa</p>
     <p>Via Cavour 14, 37069 Dossobuono (VR)<br><a href="tel:+39045986895">045 986895</a> · <a href="tel:+39045513020">045 513020</a></p>
-    <p class="foot__small">Proposta di sito realizzata da <a href="../../">Insegna</a>. Foto pubblicate dalla pizzeria su Facebook; menu dalla tovaglietta della pizzeria.</p>
+    <p class="foot__small">Proposta di sito realizzata da <a href="../../">Insegna</a>. Foto pubblicate dalla pizzeria su Facebook; menu dalla tovaglietta della pizzeria. La foto in apertura e le pizze che si compongono sono immagini illustrative realizzate per la proposta.</p>
   </div>
 </footer>
 

@@ -1,26 +1,10 @@
-/* Acconciature Mariposa: la farfalla che accompagna lo scroll, prima e dopo, orari */
+/* Acconciature Mariposa: la farfalla che si posa sui titoli, prima e dopo, galleria, orari */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body;
-
-  /* ---------- the butterfly ---------- */
-  function bfly(uid) {
-    var wing =
-      '<path d="M-2.5-5C-13-35-43-43-46-19c-1.6 13 14 22 43.5 17.5z" fill="url(#wu' + uid + ')" stroke="#431728" stroke-width="1.3" stroke-linejoin="round"/>' +
-      '<path d="M-2.5 1.5c-19-.5-35 11-31 26 3.6 12 22 6 31-20z" fill="url(#wd' + uid + ')" stroke="#431728" stroke-width="1.3" stroke-linejoin="round"/>' +
-      '<path d="M-8-6C-18-20-30-28-38-24" stroke="#431728" stroke-opacity=".35" stroke-width="1" fill="none"/>' +
-      '<circle cx="-33" cy="-25" r="3.4" fill="#fff" fill-opacity=".85"/><circle cx="-24" cy="-31" r="1.8" fill="#fff" fill-opacity=".8"/>' +
-      '<circle cx="-20" cy="18" r="2.4" fill="#fff" fill-opacity=".75"/>';
-    return '<svg class="bfly" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><defs>' +
-      '<linearGradient id="wu' + uid + '" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F7C2AE"/><stop offset=".5" stop-color="#EE8A7F"/><stop offset="1" stop-color="#A8326B"/></linearGradient>' +
-      '<linearGradient id="wd' + uid + '" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3B39F"/><stop offset="1" stop-color="#C24D72"/></linearGradient></defs>' +
-      '<g class="wl">' + wing + '</g>' +
-      '<g class="wr"><g transform="scale(-1 1)">' + wing + '</g></g>' +
-      '<path d="M0-14c3.4 4.5 3.6 34 0 41-3.6-7-3.4-36.5 0-41z" fill="#431728"/><circle cy="-16.5" r="3.6" fill="#431728"/>' +
-      '<path d="M-1.2-19C-4-27-8-31-12-33M1.2-19C4-27 8-31 12-33" stroke="#431728" stroke-width="1.3" fill="none" stroke-linecap="round"/>' +
-      '<circle cx="-12" cy="-33" r="1.6" fill="#431728"/><circle cx="12" cy="-33" r="1.6" fill="#431728"/></svg>';
-  }
+  var root = document.documentElement;
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
   /* ---------- prima e dopo ---------- */
   var PAIRS = [
@@ -38,7 +22,6 @@
 
   var ba = document.getElementById('ba');
   var range = document.getElementById('ba-range');
-  var handle = document.getElementById('ba-handle');
   var imgP = document.getElementById('ba-prima');
   var imgD = document.getElementById('ba-dopo');
   var caption = document.getElementById('ba-caption');
@@ -46,10 +29,9 @@
   var touched = false;
 
   if (ba && range) {
-    handle.innerHTML = bfly('h');
-    var pos = 50, dragging = false;
+    var dragging = false;
     var setPos = function (p) {
-      pos = Math.max(0, Math.min(100, p));
+      var pos = clamp(p, 0, 100);
       ba.style.setProperty('--pos', pos.toFixed(2) + '%');
       range.value = String(Math.round(pos));
       range.setAttribute('aria-valuetext', 'Dopo visibile al ' + Math.round(100 - pos) + ' per cento');
@@ -74,6 +56,7 @@
 
     /* switch between the two transformations */
     var pairBtns = document.querySelectorAll('.pair');
+    var hint = function () {};
     pairBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var i = +btn.getAttribute('data-pair');
@@ -101,7 +84,7 @@
 
     /* one gentle demonstration when the slider first appears */
     var hinting = false;
-    var hint = function () {
+    hint = function () {
       if (reduce || hinting) return;
       hinting = true;
       var seq = [[50, 26, 650], [26, 74, 950], [74, 50, 650]];
@@ -127,122 +110,122 @@
     }
   }
 
-  /* ---------- the flight that follows the scroll ---------- */
-  var main = document.getElementById('contenuto');
-  var trail = document.getElementById('trail');
-  var rev = document.getElementById('reveal-path');
-  var flyer = document.getElementById('flyer');
-  var perch = document.getElementById('perch');
-  var canFly = !reduce && main && trail && trail.getTotalLength && flyer && perch;
-
-  if (!canFly) {
-    body.classList.add('no-flight');
-    var arch = document.querySelector('.arch');
-    if (arch) { var s = document.createElement('span'); s.className = 'bfly-static'; s.innerHTML = bfly('s'); arch.appendChild(s); }
-  } else {
-    flyer.innerHTML = bfly('f');
-    var total = 0, L = 0, Lt = 0, rot = 0, dir = 1, mainTop = 0, first = 0, last = 0, anchor = 0;
-    var hideFrom = -1, hideTo = -1, lastY = window.scrollY, lastMove = 0, raf = 0;
-
-    var build = function () {
-      var mr = main.getBoundingClientRect();
-      mainTop = mr.top + window.scrollY;
-      var W = main.clientWidth;
-      var content = Math.min(1160, W);
-      var m = W < 600 ? 15 : Math.max(24, Math.min(60, (W - content) / 4 + 16));
-      var pts = [];
-      var pr = perch.getBoundingClientRect();
-      pts.push({ x: pr.left - mr.left, y: pr.top - mr.top - 8 });
-      document.querySelectorAll('[data-way]').forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        var t = r.top - mr.top, b = r.bottom - mr.top;
-        el.getAttribute('data-way').split(' ').forEach(function (tok) {
-          if (tok === 'r-top') pts.push({ x: W - m, y: t + 44 });
-          else if (tok === 'l-top') pts.push({ x: m, y: t + 44 });
-          else if (tok === 'r-bottom') pts.push({ x: W - m, y: b - 44 });
-          else if (tok === 'l-bottom') pts.push({ x: m, y: b - 44 });
-          else if (tok === 'ba') {
-            pts.push({ x: r.left - mr.left + r.width / 2, y: t + r.height * 0.56 });
-            hideFrom = t + 4; hideTo = b - 4;
-          } else if (tok === 'end') {
-            var f = document.querySelector('#finale .btn').getBoundingClientRect();
-            pts.push({ x: f.right - mr.left - 16, y: f.top - mr.top + 2 });
-          }
-        });
-      });
-      for (var i = 1; i < pts.length; i++) if (pts[i].y <= pts[i - 1].y + 1) pts[i].y = pts[i - 1].y + 1;
-      var d = 'M' + pts[0].x.toFixed(1) + ' ' + pts[0].y.toFixed(1);
-      for (var j = 1; j < pts.length; j++) {
-        var a = pts[j - 1], c = pts[j], dy = (c.y - a.y) * 0.5;
-        d += 'C' + a.x.toFixed(1) + ' ' + (a.y + dy).toFixed(1) + ' ' + c.x.toFixed(1) + ' ' + (c.y - dy).toFixed(1) + ' ' + c.x.toFixed(1) + ' ' + c.y.toFixed(1);
-      }
-      trail.setAttribute('d', d);
-      rev.setAttribute('d', d);
-      total = trail.getTotalLength();
-      rev.style.strokeDasharray = total + ' ' + total;
-      first = pts[0].y; last = pts[pts.length - 1].y;
-      var vh = window.innerHeight;
-      anchor = Math.max(vh * 0.2, Math.min(vh * 0.58, mainTop + first));
-      Lt = lengthAtY(targetY());
-      L = Lt;
-      render();
+  /* ---------- galleria: pinned, the photos slide sideways with the page scroll ---------- */
+  var gal = document.getElementById('lavori');
+  var strip = document.getElementById('strip');
+  var bar = document.getElementById('strip-bar');
+  var galUpdate = function () {};
+  var galMeasure = function () {};
+  if (gal && strip && !reduce) {
+    var pin = gal.querySelector('.galleria__pin');
+    var view = gal.querySelector('.galleria__view');
+    var dist = 0, top0 = 0;
+    gal.classList.add('is-pinned');
+    galUpdate = function () {
+      var p = dist ? clamp((window.scrollY - top0) / dist, 0, 1) : 0;
+      strip.style.transform = 'translate3d(' + (-p * dist).toFixed(1) + 'px,0,0)';
+      if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
     };
-
-    var targetY = function () { return window.scrollY + anchor - mainTop; };
-    var lengthAtY = function (y) {
-      if (y <= first) return 0;
-      if (y >= last) return total;
-      var lo = 0, hi = total;
-      for (var k = 0; k < 20; k++) {
-        var mid = (lo + hi) / 2;
-        if (trail.getPointAtLength(mid).y < y) lo = mid; else hi = mid;
-      }
-      return (lo + hi) / 2;
+    galMeasure = function () {
+      dist = Math.max(0, strip.offsetWidth - view.clientWidth);
+      gal.style.height = (pin.offsetHeight + dist) + 'px';
+      top0 = gal.getBoundingClientRect().top + window.scrollY;
+      galUpdate();
     };
-
-    var render = function () {
-      var p = trail.getPointAtLength(L);
-      var a = trail.getPointAtLength(Math.max(0, L - 4));
-      var b = trail.getPointAtLength(Math.min(total, L + 4));
-      var ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
-      var moving = Math.abs(Lt - L) > 1.5 || performance.now() - lastMove < 220;
-      var want = 0;
-      if (moving && L > 0 && L < total) want = dir > 0 ? ang - 90 + 180 : ang + 90 - 180;
-      if (want - rot > 180) want -= 360;
-      if (rot - want > 180) want += 360;
-      rot += (want - rot) * 0.18;
-      flyer.style.transform = 'translate(' + p.x.toFixed(1) + 'px,' + p.y.toFixed(1) + 'px) rotate(' + rot.toFixed(1) + 'deg)';
-      flyer.classList.toggle('is-flying', moving);
-      flyer.classList.toggle('is-hidden', p.y > hideFrom && p.y < hideTo);
-      rev.style.strokeDashoffset = String(total - L);
-      return moving || Math.abs(want - rot) > 0.5;
-    };
-
-    var tick = function () {
-      raf = 0;
-      L += (Lt - L) * 0.12;
-      if (Math.abs(Lt - L) < 0.4) L = Lt;
-      if (render()) raf = requestAnimationFrame(tick);
-    };
-
-    var onScroll = function () {
-      var y = window.scrollY;
-      if (y !== lastY) dir = y > lastY ? 1 : -1;
-      lastY = y;
-      lastMove = performance.now();
-      Lt = lengthAtY(targetY());
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-
-    var timer = 0;
-    var rebuild = function () { window.clearTimeout(timer); timer = window.setTimeout(build, 120); };
-    build();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', rebuild);
-    window.addEventListener('load', rebuild);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(rebuild);
-    if ('ResizeObserver' in window) new ResizeObserver(rebuild).observe(main);
+    galMeasure();
   }
+
+  /* ---------- the butterfly: it rests beside a heading, and flies to the next one ---------- */
+  var bf = document.getElementById('bfly');
+  var perches = Array.prototype.slice.call(document.querySelectorAll('[data-perch]'));
+  var bfCheck = function () {};
+  if (bf && perches.length && !reduce && window.requestAnimationFrame) {
+    var tiltEl = bf.querySelector('.bfly__tilt');
+    var cur = 0, flight = null, pos = null, tilt = 0, raf = 0;
+
+    var seat = function (i) {
+      var p = perches[i], r = p.getBoundingClientRect(), cs = getComputedStyle(p);
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2,
+        s: parseFloat(cs.getPropertyValue('--s')) || 1,
+        rest: parseFloat(cs.getPropertyValue('--rest')) || -12 };
+    };
+    var pick = function () {
+      var vh = window.innerHeight, i = cur;
+      while (i + 1 < perches.length && perches[i + 1].getBoundingClientRect().top < vh * 0.72) i++;
+      while (i > 0 && perches[i].getBoundingClientRect().top > vh * 0.86) i--;
+      return i;
+    };
+    var land = function () {
+      flight = null; pos = null;
+      perches[cur].appendChild(bf);
+      bf.style.transform = '';
+      tiltEl.style.removeProperty('--tilt');
+      bf.classList.remove('is-flying');
+    };
+    var frame = function (now) {
+      raf = 0;
+      if (!flight) return;
+      var f = flight, W = root.clientWidth;
+      var t = clamp((now - f.t0) / f.dur, 0, 1);
+      var e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      var d = seat(cur);
+      var dx = d.x - f.from.x, dy = d.y - f.from.y, L = Math.sqrt(dx * dx + dy * dy) || 1;
+      /* a soft arc towards the right side of the page, plus a little flutter */
+      var A = Math.min(80, L * 0.3) * Math.sin(Math.PI * e) * f.sign;
+      var bob = Math.sin(t * Math.PI * 6) * 5 * (1 - t);
+      var x = f.from.x + dx * e + (-dy / L) * A;
+      var y = f.from.y + dy * e + (dx / L) * A + bob;
+      var half = (bf.offsetWidth || 46) * 0.75;
+      x = clamp(x, half, W - half);
+      var s = f.from.s + (d.s - f.from.s) * e;
+      var vx = pos ? x - pos.x : 0;
+      tilt += (clamp(vx * 2.4, -26, 26) - tilt) * 0.2;
+      var tl = t > .75 ? tilt + (d.rest - tilt) * ((t - .75) / .25) : tilt;
+      pos = { x: x, y: y, s: s, tilt: tl };
+      var w = bf.offsetWidth, h = bf.offsetHeight;
+      bf.style.transform = 'translate3d(' + (x - w / 2).toFixed(1) + 'px,' + (y - h / 2).toFixed(1) + 'px,0) scale(' + s.toFixed(3) + ')';
+      tiltEl.style.setProperty('--tilt', tl.toFixed(1) + 'deg');
+      if (t >= 1) land(); else raf = requestAnimationFrame(frame);
+    };
+    var fly = function (to) {
+      var vh = window.innerHeight, W = root.clientWidth;
+      var from;
+      if (flight && pos) from = { x: pos.x, y: pos.y, s: pos.s };
+      else { var s0 = seat(cur); from = { x: s0.x, y: s0.y, s: s0.s }; tilt = s0.rest; }
+      /* if the old perch is far off screen, start just outside the edge */
+      from.y = clamp(from.y, -70, vh + 70);
+      from.x = clamp(from.x, 40, W - 40);
+      cur = to;
+      if (bf.parentNode !== body) body.appendChild(bf);
+      bf.classList.add('is-flying');
+      var d = seat(to);
+      var dx = d.x - from.x, dy = d.y - from.y, L = Math.sqrt(dx * dx + dy * dy) || 1;
+      /* bow the arc towards the roomier side */
+      var wantRight = (from.x + d.x) / 2 < W * 0.62;
+      var sign = (-dy / L >= 0) === wantRight ? 1 : -1;
+      flight = { from: from, t0: performance.now(), dur: clamp(650 + L * 0.9, 900, 1600), sign: sign };
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+    bfCheck = function () {
+      var i = pick();
+      if (i !== cur) fly(i);
+    };
+    bfCheck();
+  }
+
+  /* ---------- one scroll listener drives both ---------- */
+  var ticking = 0;
+  var onScroll = function () {
+    if (ticking) return;
+    ticking = requestAnimationFrame(function () { ticking = 0; galUpdate(); bfCheck(); });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  var rt = 0;
+  var remeasure = function () { window.clearTimeout(rt); rt = window.setTimeout(function () { galMeasure(); bfCheck(); }, 100); };
+  window.addEventListener('resize', remeasure);
+  window.addEventListener('load', remeasure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+  if ('ResizeObserver' in window && strip) new ResizeObserver(remeasure).observe(strip);
 
   /* ---------- aperto ora / chiuso (ora di Roma) ---------- */
   var SCHED = { 0: [], 1: [], 2: [[540, 1050]], 3: [[720, 1200]], 4: [[540, 1050]], 5: [[540, 1050]], 6: [[540, 1050]] };

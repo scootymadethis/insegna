@@ -11,10 +11,12 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:title" content="Gioia, caffetteria e pasticceria a Dossobuono">
-<meta property="og:description" content="Ogni giorno qualcosa di buono dal nostro laboratorio, in Via Vertua 7C.">
+<meta property="og:description" content="Ogni giorno qualcosa di nuovo dal nostro laboratorio, in Via Vertua 7C.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/bricolage-grotesque-latin-standard.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-latin-full-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 <a class="skip" href="#contenuto">Vai al contenuto</a>
@@ -29,22 +31,43 @@
     <p class="status" data-status><span class="status-dot" aria-hidden="true"></span><span data-status-text>Orari qui sotto</span></p>
   </div>
 
-  <div class="hero-main wrap">
-    <h1 class="hero-title">
-      <span class="sr-only">Gioia a Dossobuono: </span>Ogni giorno qualcosa&nbsp;di
-      <span class="pill" aria-hidden="true">
-        <img class="is-on" src="img/croissant-catalana.webp" alt="" width="360" height="640" style="object-position:50% 62%">
-        <img src="img/lv-agrumato.webp" alt="" width="640" height="584" loading="lazy">
-        <img src="img/mignon.webp" alt="" width="900" height="1200" loading="lazy">
-        <img src="img/tiramisu.webp" alt="" width="720" height="960" loading="lazy" style="object-position:50% 70%">
-        <img src="img/torta-numero.webp" alt="" width="760" height="738" loading="lazy">
-      </span><span class="sr-only"> buono</span>
-    </h1>
-    <p class="hero-lead">Caffetteria, pasticceria, gelateria e lunch bar in Via Vertua 7C, a Dossobuono. Dalle 6:30 del mattino, tutto dal nostro laboratorio.</p>
-    <p class="rating"><span class="stars" aria-hidden="true">★</span> 4,3 su Google, 528 recensioni</p>
-    <div class="cta-row">
-      <a class="btn btn-orange" href="#lievitati">Prenota il panettone</a>
-      <a class="btn btn-line" href="tel:+39045513560">Chiama 045 513560</a>
+  <div class="hero-grid wrap">
+    <div class="hero-copy">
+      <h1 class="hero-title">
+        <span class="sr-only">Gioia a Dossobuono: </span>
+        <span class="ht-line">Ogni giorno</span>
+        <span class="ht-line">qualcosa di</span>
+        <span class="ht-nuovo">nuovo<svg class="swash" viewBox="0 0 260 48" aria-hidden="true" focusable="false"><path pathLength="1" d="M6 32 C 60 42, 140 42, 216 25"/><path pathLength="1" d="M238 15 C 234 6, 221 6, 221 15 C 221 23, 231 28, 238 35 C 245 28, 255 23, 255 15 C 255 6, 242 6, 238 15"/></svg></span>
+      </h1>
+      <p class="hero-lead">Caffetteria, pasticceria, gelateria e lunch bar in Via Vertua 7C, a Dossobuono. Dalle 6:30 del mattino, tutto dal nostro laboratorio.</p>
+      <p class="rating"><span class="stars" aria-hidden="true">★★★★★</span> 4,3 su Google, 528 recensioni</p>
+      <div class="cta-row">
+        <a class="btn btn-orange" href="#lievitati">Prenota il panettone</a>
+        <a class="btn btn-line" href="tel:+39045513560">Chiama 045 513560</a>
+      </div>
+    </div>
+
+    <div class="hero-gallery" data-hero-gallery>
+      <div class="hg-col" data-speed="0.10">
+        <figure class="hg-item">
+          <img src="img/studio-croissant.webp" width="720" height="900" alt="Il croissant alla crema catalana di Gioia" fetchpriority="high">
+          <figcaption>Croissant alla crema catalana</figcaption>
+        </figure>
+        <figure class="hg-item">
+          <img src="img/studio-torta.webp" width="720" height="900" alt="La torta nuziale Infinita Nocciola, bianca con perle di zucchero e rose">
+          <figcaption>Torta nuziale Infinita Nocciola</figcaption>
+        </figure>
+      </div>
+      <div class="hg-col" data-speed="0.22">
+        <figure class="hg-item">
+          <img src="img/studio-panettone.webp" width="720" height="900" alt="Panettone all'uvetta con la cupola dorata" fetchpriority="high">
+          <figcaption>Panettone all'uvetta</figcaption>
+        </figure>
+        <figure class="hg-item">
+          <img src="img/studio-tiramisu.webp" width="720" height="900" alt="Il tiramisù di Gioia in coppa, con cacao e savoiardo">
+          <figcaption>Tiramisù</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </header>
@@ -55,38 +78,50 @@
     <div class="lievita-sticky">
       <div class="lievita-stage" aria-hidden="true">
         <div class="glow"></div>
-        <div class="panettone">
-          <div class="pt-dome-wrap"><img class="pt-dome" src="img/lievita.webp" width="576" height="640" alt=""></div>
-          <img class="pt-paper" src="img/lievita.webp" width="576" height="640" alt="">
+        <svg class="dial" viewBox="0 0 200 200" focusable="false">
+          <circle class="dial-track" cx="100" cy="100" r="96"/>
+          <circle class="dial-fill" cx="100" cy="100" r="96" pathLength="1"/>
+          <circle class="dial-dot" data-dot="0" cx="100" cy="4" r="3.2"/>
+          <circle class="dial-dot" data-dot="1" cx="183.1" cy="148" r="3.2"/>
+          <circle class="dial-dot" data-dot="2" cx="16.9" cy="148" r="3.2"/>
+        </svg>
+        <div class="stages">
+          <div class="plate-shadow"></div>
+          <img class="stage-img" data-stage="0" src="img/lievito-1.webp" width="720" height="720" alt="">
+          <img class="stage-img" data-stage="1" src="img/lievito-2.webp" width="720" height="720" alt="" loading="lazy">
+          <img class="stage-img" data-stage="2" src="img/lievito-3.webp" width="720" height="720" alt="" loading="lazy">
         </div>
       </div>
-      <div class="lievita-copy wrap">
+      <div class="lievita-copy">
         <h2 id="h-lievita" class="sr-only">Il nostro laboratorio</h2>
-        <div class="step is-on" data-step="0">
-          <h3>Lievito madre, da oltre quarant'anni.</h3>
-          <p>Lo custodiamo e lo nutriamo ogni giorno nel laboratorio di Dossobuono. È lui che fa crescere i nostri panettoni, con calma.</p>
-        </div>
-        <div class="step" data-step="1">
-          <h3>Ingredienti che si riconoscono.</h3>
-          <p>Farine macinate a pietra, latte fresco di montagna, uova biologiche, frutta fresca e miele a km 0. Per un'etichetta pulita.</p>
-        </div>
-        <div class="step" data-step="2">
-          <h3>Solo nel mese prima di Natale.</h3>
-          <p>Il maestro pasticciere Adalberto e lo staff impastano i lievitati solo in queste settimane, per lavorare materie prime fresche.</p>
-          <p class="countdown" data-countdown hidden></p>
+        <div class="steps">
+          <div class="step is-on" data-step="0">
+            <h3>Lievito madre, da oltre quarant'anni.</h3>
+            <p>Lo custodiamo e lo nutriamo ogni giorno nel laboratorio di Dossobuono. È lui che fa crescere i nostri panettoni, con calma.</p>
+          </div>
+          <div class="step" data-step="1">
+            <h3>Ingredienti che si riconoscono.</h3>
+            <p>Farine macinate a pietra, latte fresco di montagna, uova biologiche, frutta fresca e miele a km 0. Per un'etichetta pulita.</p>
+          </div>
+          <div class="step" data-step="2">
+            <h3>Solo nel mese prima di Natale.</h3>
+            <p>Il maestro pasticciere Adalberto e lo staff impastano i lievitati solo in queste settimane, per lavorare materie prime fresche.</p>
+            <p class="countdown" data-countdown hidden><span class="cd-num" data-cd-num></span> <span data-cd-text></span></p>
+            <a class="btn btn-orange step-cta" href="#lievitati">Scegli il tuo lievitato</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section class="lievitati" id="lievitati" aria-labelledby="h-lievitati">
-    <div class="wrap">
+    <div class="wrap lv-head">
       <h2 id="h-lievitati">I lievitati di Natale</h2>
       <p class="sec-lead">Nove ricette per queste feste, due sono novità del 2026. Scegli il tuo e prenotalo: lo ritiri da noi in Via Vertua.</p>
     </div>
 
-    <div class="lv-picker wrap">
-      <div class="lv-chips" role="group" aria-label="Scegli il lievitato">
+    <div class="lv-chips-wrap">
+      <div class="lv-chips wrap" role="group" aria-label="Scegli il lievitato">
         <button type="button" class="chip" aria-pressed="true" data-id="natalino"><img src="img/lv-natalino.webp" alt="" width="40" height="37">Natalino</button>
         <button type="button" class="chip" aria-pressed="false" data-id="uvetta"><img src="img/lv-uvetta.webp" alt="" width="40" height="44" loading="lazy">Uvetta</button>
         <button type="button" class="chip" aria-pressed="false" data-id="agrumato"><img src="img/lv-agrumato.webp" alt="" width="40" height="37" loading="lazy">Agrumato</button>
@@ -97,26 +132,27 @@
         <button type="button" class="chip" aria-pressed="false" data-id="lampone"><img src="img/lv-lampone.webp" alt="" width="40" height="36" loading="lazy">Cioccolato e Lampone</button>
         <button type="button" class="chip" aria-pressed="false" data-id="zucca"><img src="img/lv-zucca.webp" alt="" width="40" height="27" loading="lazy">Note di Zucca</button>
       </div>
-
-      <div class="lv-stage" data-lv-stage>
-        <p class="sr-only" aria-live="polite" data-lv="live"></p>
-        <p class="lv-bigname" aria-hidden="true" data-lv="bigname">Natalino</p>
-        <img class="lv-img" data-lv="img" src="img/lv-natalino.webp" width="640" height="586" alt="Il Natalino, panettone a stella della tradizione veronese">
-        <div class="lv-info">
-          <h3 class="lv-name" data-lv="name">Natalino</h3>
-          <p class="lv-meta"><span data-lv="tag">Classico veronese</span>, <span data-lv="weight">kg 0,650</span></p>
-          <p class="lv-price" data-lv="price">28,00 €</p>
-          <p class="lv-desc" data-lv="desc">La coccola del Natale veronese: un grande classico, morbidissimo e dal gusto equilibrato.</p>
-          <div class="cta-row">
-            <a class="btn btn-orange" href="https://pasticceriagioia.it/natale#lievitati" target="_blank" rel="noopener">Prenota online</a>
-            <a class="btn btn-line" data-lv="wa" href="https://wa.me/393248067232?text=Ciao%20Gioia%2C%20vorrei%20prenotare%3A%20Natalino." target="_blank" rel="noopener">Chiedi su WhatsApp</a>
-          </div>
-        </div>
-      </div>
-
-
-      <p class="lv-notes">I pesi sono indicativi: i lievitati sono fatti interamente a mano. Prima di prenotare guarda la <a href="https://pasticceriagioia.it/natale/allergeni" target="_blank" rel="noopener">scheda ingredienti e allergeni</a>. Regali per clienti e collaboratori? <a href="https://pasticceriagioia.it/aziende" target="_blank" rel="noopener">Il Natale per le aziende</a>.</p>
     </div>
+
+    <div class="lv-stage wrap" data-lv-stage>
+      <p class="sr-only" aria-live="polite" data-lv="live"></p>
+      <div class="lv-visual">
+        <img class="lv-img" data-lv="img" src="img/lv-natalino.webp" width="640" height="586" alt="Il Natalino, panettone a stella della tradizione veronese">
+      </div>
+      <div class="lv-info">
+        <p class="lv-tag" data-lv="tag">Classico veronese</p>
+        <h3 class="lv-name" data-lv="name">Natalino</h3>
+        <p class="lv-buy"><span class="lv-price" data-lv="price">28,00 €</span><span class="lv-weight" data-lv="weight">kg 0,650</span></p>
+        <p class="lv-desc" data-lv="desc">La coccola del Natale veronese: un grande classico, morbidissimo e dal gusto equilibrato.</p>
+        <div class="cta-row">
+          <a class="btn btn-orange" href="https://pasticceriagioia.it/natale#lievitati" target="_blank" rel="noopener">Prenota online</a>
+          <a class="btn btn-line" data-lv="wa" href="https://wa.me/393248067232?text=Ciao%20Gioia%2C%20vorrei%20prenotare%3A%20Natalino." target="_blank" rel="noopener">Chiedi su WhatsApp</a>
+        </div>
+        <p class="lv-shop">La prenotazione online è sul nostro shop di Natale, <a href="https://pasticceriagioia.it/natale" target="_blank" rel="noopener">pasticceriagioia.it</a>.</p>
+      </div>
+    </div>
+
+    <div class="wrap"><p class="lv-notes">I pesi sono indicativi: i lievitati sono fatti interamente a mano. Prima di prenotare guarda la <a href="https://pasticceriagioia.it/natale/allergeni" target="_blank" rel="noopener">scheda ingredienti e allergeni</a>. Regali per clienti e collaboratori? <a href="https://pasticceriagioia.it/aziende" target="_blank" rel="noopener">Il Natale per le aziende</a>.</p></div>
   </section>
 
   <section class="lucia" id="santa-lucia" aria-labelledby="h-lucia">
@@ -141,47 +177,78 @@
     </div>
   </section>
 
-  <section class="giornata" id="giornata" aria-labelledby="h-giornata">
+  <section class="giornata" id="giornata" aria-labelledby="h-giornata" data-hscroll>
+    <div class="gio-sticky">
+      <div class="wrap gio-head">
+        <h2 id="h-giornata">Una giornata al Gioia</h2>
+        <div class="gio-clock" aria-hidden="true">
+          <span class="gio-clock-fill" data-hfill></span>
+        </div>
+      </div>
+      <div class="gio-viewport">
+        <ol class="gio-track" data-htrack>
+          <li class="gio-card">
+            <img class="gio-img" src="img/studio-croissant.webp" width="720" height="900" alt="Il croissant alla crema catalana di Gioia" loading="lazy">
+            <div class="gio-text">
+              <p class="gio-when">Dalle 6:30</p>
+              <h3>Colazione</h3>
+              <p>Cappuccino e brioche, al banco o al tavolo. La novità di novembre è il croissant alla crema catalana: soffice, cremoso, e uno solo potrebbe non bastare.</p>
+            </div>
+          </li>
+          <li class="gio-card">
+            <img class="gio-img" src="img/croissant-salato.webp" width="720" height="960" alt="Croissant salato con prosciutto cotto, mozzarella e insalata" loading="lazy">
+            <div class="gio-text">
+              <p class="gio-when">A pranzo</p>
+              <h3>Lunch bar</h3>
+              <p>Croissant salati farciti con cotto della Lessinia, mozzarella e insalata, pizzette con lievito madre, insalate di pasta e piatti vegani. Anche da asporto, e per i team portiamo la pausa pranzo in azienda.</p>
+            </div>
+          </li>
+          <li class="gio-card">
+            <img class="gio-img" src="img/mignon.webp" width="900" height="1200" alt="Un vassoio di pasticceria mignon assortita" loading="lazy">
+            <div class="gio-text">
+              <p class="gio-when">Il pomeriggio</p>
+              <h3>Pasticceria e gelateria</h3>
+              <p>La vetrina si riempie: mignon, tiramisù, crostate, anche per chi non mangia latte e uova. E il gelato della nostra gelateria.</p>
+            </div>
+          </li>
+          <li class="gio-card is-pair">
+            <div class="gio-pair">
+              <img class="gio-img" src="img/torta-numero.webp" width="760" height="738" alt="Torta a forma di numero con crema e scaglie di cioccolato" loading="lazy">
+              <img class="gio-img" src="img/torta-nuziale.webp" width="360" height="640" alt="La torta nuziale Infinita Nocciola, bianca con perle di zucchero e rose" loading="lazy">
+            </div>
+            <div class="gio-text">
+              <p class="gio-when">Su ordinazione</p>
+              <h3>Torte con dedica</h3>
+              <p>Per compleanni, anniversari e matrimoni, come la nostra torta nuziale Infinita Nocciola. Scrivici l'occasione e la dedica: un dolce messaggio, fatto con il cuore.</p>
+              <a class="btn btn-dark" href="https://wa.me/393248067232?text=Ciao%20Gioia%2C%20vorrei%20ordinare%20una%20torta%20con%20dedica." target="_blank" rel="noopener">Ordina una torta su WhatsApp</a>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="recensioni" id="recensioni" aria-labelledby="h-recensioni">
     <div class="wrap">
-      <h2 id="h-giornata">Una giornata al Gioia</h2>
-      <ol class="day">
-        <li class="day-row">
-          <p class="day-when">Dalle 6:30</p>
-          <div class="day-text">
-            <h3>Colazione</h3>
-            <p>Cappuccino e brioche, al banco o al tavolo. La novità di novembre è il croissant alla crema catalana: soffice, cremoso, e uno solo potrebbe non bastare.</p>
-          </div>
-          <img class="day-img is-tall" style="object-position:50% 58%" src="img/croissant-catalana.webp" width="360" height="640" alt="Il croissant alla crema catalana di Gioia" loading="lazy">
+      <div class="rev-head">
+        <h2 id="h-recensioni">Le vostre parole.</h2>
+        <p class="rev-score"><span class="stars" aria-hidden="true">★★★★★</span> 4,3 su Google, 528 recensioni</p>
+      </div>
+      <ul class="rev-board" data-rev-board>
+        <li class="rev" data-drift="-0.05">
+          <blockquote><p>Brioche veramente deliziosa, servita leggermente calda</p></blockquote>
+          <p class="rev-by"><span class="rev-stars" aria-label="5 stelle su 5">★★★★★</span> Lorenzo L., su Google</p>
         </li>
-        <li class="day-row">
-          <p class="day-when">A pranzo</p>
-          <div class="day-text">
-            <h3>Lunch bar</h3>
-            <p>Croissant salati farciti con cotto della Lessinia, mozzarella e insalata, pizzette con lievito madre, insalate di pasta e piatti vegani. Anche da asporto, e per i team portiamo la pausa pranzo in azienda.</p>
-          </div>
-          <img class="day-img" src="img/croissant-salato.webp" width="720" height="960" alt="Croissant salato con prosciutto cotto, mozzarella e insalata" loading="lazy">
+        <li class="rev" data-drift="0.06">
+          <blockquote><p>Ottima la qualità delle materie prime, ottimo il servizio e molto piacevole l’atmosfera. La colazione è artigianale e super sfogliata promossa a pieni voti.</p></blockquote>
+          <p class="rev-by"><span class="rev-stars" aria-label="5 stelle su 5">★★★★★</span> V. G., su Google</p>
         </li>
-        <li class="day-row">
-          <p class="day-when">Il pomeriggio</p>
-          <div class="day-text">
-            <h3>Pasticceria e gelateria</h3>
-            <p>La vetrina si riempie: mignon, tiramisù, crostate, anche per chi non mangia latte e uova. E il gelato della nostra gelateria.</p>
-          </div>
-          <img class="day-img" src="img/mignon.webp" width="900" height="1200" alt="Un vassoio di pasticceria mignon assortita" loading="lazy">
+        <li class="rev" data-drift="-0.02">
+          <blockquote><p>Conosco la pasticceria, di alta qualità e personale gentile e disponibile, belle le confezioni e le decorazioni</p></blockquote>
+          <p class="rev-by"><span class="rev-stars" aria-label="5 stelle su 5">★★★★★</span> Antonio M., su Google</p>
         </li>
-        <li class="day-row">
-          <p class="day-when">Su ordinazione</p>
-          <div class="day-text">
-            <h3>Torte con dedica</h3>
-            <p>Per compleanni, anniversari e matrimoni, come la nostra torta nuziale Infinita Nocciola. Scrivici l'occasione e la dedica: un dolce messaggio, fatto con il cuore.</p>
-            <a class="btn btn-dark" href="https://wa.me/393248067232?text=Ciao%20Gioia%2C%20vorrei%20ordinare%20una%20torta%20con%20dedica." target="_blank" rel="noopener">Ordina una torta su WhatsApp</a>
-          </div>
-          <div class="day-pair">
-            <img class="day-img" src="img/torta-numero.webp" width="760" height="738" alt="Torta a forma di numero con crema e scaglie di cioccolato" loading="lazy">
-            <img class="day-img is-tall" src="img/torta-nuziale.webp" width="360" height="640" alt="La torta nuziale Infinita Nocciola, bianca con perle di zucchero e rose" loading="lazy">
-          </div>
-        </li>
-      </ol>
+      </ul>
+      <a class="rev-link" href="https://www.google.com/maps?cid=14042062169597164589" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
     </div>
   </section>
 
@@ -212,6 +279,7 @@
           <li><span>Cellulare e WhatsApp</span><a href="https://wa.me/393248067232" target="_blank" rel="noopener">324 806 7232</a></li>
           <li><span>Email</span><a href="mailto:gelateriagioia@gmail.com">gelateriagioia@gmail.com</a></li>
           <li><span>Instagram</span><a href="https://www.instagram.com/gelateriagioia_dossobuono/" target="_blank" rel="noopener">@gelateriagioia_dossobuono</a></li>
+          <li><span>Ordini di Natale</span><a href="https://pasticceriagioia.it/natale" target="_blank" rel="noopener">pasticceriagioia.it</a></li>
         </ul>
       </div>
     </div>
@@ -224,7 +292,7 @@
     <img src="img/logo-gioia.webp" width="520" height="253" alt="Gioia" loading="lazy">
     <div>
       <p>Gioia Caffetteria Bar Pasticceria Gelateria<br>Via Vertua 7C, 37062 Dossobuono (VR)</p>
-      <p class="foot-small">Foto e illustrazioni pubblicate da Pasticceria Gioia sui propri canali. Proposta grafica di <a href="../../">Insegna</a>.</p>
+      <p class="foot-small" data-credits>Le foto di prodotto accanto al titolo, quella della colazione e le tre fasi del panettone sono immagini illustrative realizzate per la proposta, a partire dai prodotti di Gioia. Le altre foto e l'illustrazione sono pubblicate da Pasticceria Gioia sui propri canali. Proposta grafica di <a href="../../">Insegna</a>.</p>
     </div>
   </div>
 </footer>

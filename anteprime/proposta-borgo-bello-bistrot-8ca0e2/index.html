@@ -25,33 +25,39 @@
 </div>
 
 <header class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <img class="hero-photo" src="img/borgo-hero.webp" width="1600" height="900" alt="" fetchpriority="high">
+  </div>
   <div class="wrap hero-top">
     <img class="hero-logo" src="img/logo-borgo-bello.webp" width="400" height="374" alt="Borgo Bello Bistrot">
     <p class="status" data-status><span class="status-dot" aria-hidden="true"></span><span data-status-text>Orari in fondo alla pagina</span></p>
   </div>
   <div class="wrap hero-body">
-    <h1 class="sr-only">Borgo Bello Bistrot a Dossobuono: colazione, pranzo, aperitivo</h1>
-    <nav class="moments" aria-label="Momenti della giornata">
-      <a class="moment" href="#colazione" data-moment="colazione">
-        <span class="moment-when">dalle 7:00<span class="moment-now">adesso</span></span>
-        <span class="moment-word">Colazione</span>
-      </a>
-      <a class="moment" href="#panino" data-moment="pranzo">
-        <span class="moment-when">panini su misura 11:30–14:00<span class="moment-now">adesso</span></span>
-        <span class="moment-word">Pranzo</span>
-      </a>
-      <a class="moment" href="#aperitivo" data-moment="aperitivo">
-        <span class="moment-when"><span data-aperitivo-when>fino alle 20:00</span><span class="moment-now">adesso</span></span>
-        <span class="moment-word">Aperitivo</span>
-      </a>
-    </nav>
+    <h1 class="hero-title"><span class="sr-only">Borgo Bello Bistrot a Dossobuono. </span>Dal caffè delle 7 allo spritz della sera.</h1>
     <p class="hero-lead">Bar e bistrot in Via Staffali 44C, a Dossobuono. Colazioni, pause pranzo con panini fatti al momento e insalatone su misura, spritz e cocktail.</p>
-    <p class="rating"><span class="stars" aria-hidden="true">★</span> 4,9 su Google, 67 recensioni</p>
     <div class="cta-row">
       <a class="btn btn-copper" href="#panino">Componi il tuo panino</a>
       <a class="btn btn-line" href="tel:+393516469168">Chiama 351 646 9168</a>
     </div>
+    <p class="rating"><span class="stars" aria-hidden="true">★★★★★</span> <b>4,9</b> su Google, 67 recensioni</p>
   </div>
+  <nav class="wrap moments" aria-label="Momenti della giornata">
+    <a class="moment" href="#colazione" data-moment="colazione">
+      <span class="moment-when">dalle 7:00 <span class="moment-now">adesso</span></span>
+      <span class="moment-word">Colazione</span>
+      <span class="moment-what">caffè, brioche, cioccolata calda</span>
+    </a>
+    <a class="moment" href="#panino" data-moment="pranzo">
+      <span class="moment-when">11:30–14:00 <span class="moment-now">adesso</span></span>
+      <span class="moment-word">Pranzo</span>
+      <span class="moment-what">panini su misura e insalatone</span>
+    </a>
+    <a class="moment" href="#aperitivo" data-moment="aperitivo">
+      <span class="moment-when"><span data-aperitivo-when>fino alle 20:00</span> <span class="moment-now">adesso</span></span>
+      <span class="moment-word">Aperitivo</span>
+      <span class="moment-what">spritz, cocktail, gin tonic</span>
+    </a>
+  </nav>
 </header>
 
 <main id="contenuto">
@@ -62,12 +68,12 @@
         <h2 id="h-colazione">Colazione, dalle 7.</h2>
         <p class="lead">Caffè, cappuccino e brioche, al banco o al tavolo, prima di andare al lavoro. E quando fuori fa freddo c'è la nostra cioccolata calda: panna montata, cacao e un biscotto Lotus sopra.</p>
       </div>
-      <img class="photo" src="img/cioccolata.webp" width="480" height="410" alt="Cioccolata calda con panna montata, cacao e biscotto Lotus" loading="lazy">
+      <img class="photo photo-tilt" src="img/cioccolata.webp" width="480" height="410" alt="Cioccolata calda con panna montata, cacao e biscotto Lotus" loading="lazy">
     </div>
   </section>
 
   <section class="panino" id="panino" aria-labelledby="h-panino">
-    <div class="wrap">
+    <div class="wrap panino-head">
       <h2 id="h-panino">Componi il tuo panino.</h2>
       <p class="lead">Da fine settembre la nostra pausa pranzo è cambiata: niente più piatti caldi, ma panini fatti al momento, insalatone e piatti freddi. Tu scegli pane e ingredienti, noi lo prepariamo. Dalle 11:30 alle 14:00.</p>
     </div>
@@ -75,16 +81,16 @@
     <div class="wrap builder" data-builder>
       <div class="builder-stage">
         <div class="stage-card">
-          <svg class="stack" viewBox="0 0 320 204" role="img" aria-labelledby="stack-title" data-stack>
-            <title id="stack-title">Il tuo panino</title>
-            <ellipse cx="160" cy="197" rx="150" ry="7" fill="#0d221d" opacity=".2"/>
-            <rect x="12" y="186" width="296" height="12" rx="6" fill="#8a5a35"/>
-            <rect x="12" y="186" width="296" height="4" rx="2" fill="#a8744a"/>
-            <g class="stack-layers" data-layers></g>
-          </svg>
-          <div class="stage-meta">
-            <p class="price" data-price aria-live="polite">6,00 €</p>
-            <p class="recipe" data-recipe>Scegli il pane per cominciare.</p>
+          <div class="stage-head">
+            <p class="stage-title">Il tuo panino</p>
+            <p class="tag" aria-live="polite"><span class="tag-label">totale</span> <span class="tag-price" data-price>6,00 €</span></p>
+          </div>
+          <div class="board">
+            <div class="stack" data-stack role="img" aria-label="Il tuo panino"></div>
+          </div>
+          <p class="recipe" data-recipe>Scegli il pane per cominciare.</p>
+          <div class="receipt receipt-stage">
+            <ul class="receipt-list" data-receipt></ul>
           </div>
         </div>
       </div>
@@ -115,6 +121,12 @@
           <span>Da portare via <small>+0,50 €</small></span>
         </label>
 
+        <div class="receipt receipt-form">
+          <p class="receipt-title">Il conto del tuo panino</p>
+          <ul class="receipt-list" data-receipt></ul>
+          <p class="receipt-total"><span>Totale</span><b data-price>6,00 €</b></p>
+        </div>
+
         <div class="builder-actions">
           <button type="button" class="btn btn-copper" data-show>Mostralo al banco</button>
           <a class="btn btn-wa" data-wa href="https://wa.me/393516469168" target="_blank" rel="noopener">Invia su WhatsApp</a>
@@ -141,22 +153,30 @@
     </dialog>
   </section>
 
-  <section class="menu-pranzo" aria-labelledby="h-vetrina">
+  <section class="vetrina-sec" aria-labelledby="h-vetrina" data-hscroll>
+    <div class="hs-pin">
+      <div class="wrap hs-head">
+        <h2 id="h-vetrina">Sempre in vetrina</h2>
+        <p class="lead">Fuori dalla pausa pranzo, al banco trovi tutto il giorno i nostri panini. Ci sono anche panini senza glutine: chiedi a noi.</p>
+      </div>
+      <div class="hs-window">
+        <ul class="hs-track vetrina" data-track>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-sfizioso.webp" width="420" height="161" alt="" loading="lazy"></div><h3>Sfizioso</h3><p class="vcard-p">7,00 €</p><p class="vcard-d">Pane lungo grigliato, salame, fontina, insalata</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-pongo.webp" width="403" height="287" alt="" loading="lazy"></div><h3>Pongo</h3><p class="vcard-p">7,00 €</p><p class="vcard-d">Puccia salentina, speck, fontina</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-caprese.webp" width="420" height="264" alt="" loading="lazy"></div><h3>Caprese</h3><p class="vcard-p">7,00 €</p><p class="vcard-d">Pan focaccia, pomodoro, mozzarella, insalata</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-campagnolo.webp" width="411" height="310" alt="" loading="lazy"></div><h3>Campagnolo</h3><p class="vcard-p">7,00 €</p><p class="vcard-d">Pan focaccia, zucchine e melanzane grigliate, fontina</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-super-toast.webp" width="420" height="260" alt="" loading="lazy"></div><h3>Super toast</h3><p class="vcard-p">6,00 €</p><p class="vcard-d">Pane da toast, prosciutto cotto, fontina</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-piadina-cotto.webp" width="383" height="184" alt="" loading="lazy"></div><h3>Piadina cotto</h3><p class="vcard-p">6,00 €</p><p class="vcard-d">Piadina, prosciutto cotto, fontina</p></li>
+          <li class="vcard"><div class="vcard-img"><img src="img/m-piadina-crudo.webp" width="289" height="197" alt="" loading="lazy"></div><h3>Piadina crudo</h3><p class="vcard-p">6,00 €</p><p class="vcard-d">Piadina, prosciutto crudo, fontina</p></li>
+        </ul>
+      </div>
+      <div class="wrap"><p class="fine hs-note">Panini da asporto +0,50 €.</p></div>
+    </div>
+  </section>
+
+  <section class="menu-pranzo" aria-labelledby="h-pranzo">
     <div class="wrap">
-      <h2 id="h-vetrina">Sempre in vetrina</h2>
-      <p class="lead">Fuori dalla pausa pranzo, al banco trovi tutto il giorno i nostri panini. Ci sono anche panini senza glutine: chiedi a noi.</p>
-
-      <ul class="vetrina">
-        <li><img src="img/m-sfizioso.webp" width="420" height="161" alt="" loading="lazy"><div><h3>Sfizioso <span class="p">7,00 €</span></h3><p>Pane lungo grigliato, salame, fontina, insalata</p></div></li>
-        <li><img src="img/m-pongo.webp" width="403" height="287" alt="" loading="lazy"><div><h3>Pongo <span class="p">7,00 €</span></h3><p>Puccia salentina, speck, fontina</p></div></li>
-        <li><img src="img/m-caprese.webp" width="420" height="264" alt="" loading="lazy"><div><h3>Caprese <span class="p">7,00 €</span></h3><p>Pan focaccia, pomodoro, mozzarella, insalata</p></div></li>
-        <li><img src="img/m-campagnolo.webp" width="411" height="310" alt="" loading="lazy"><div><h3>Campagnolo <span class="p">7,00 €</span></h3><p>Pan focaccia, zucchine e melanzane grigliate, fontina</p></div></li>
-        <li><img src="img/m-super-toast.webp" width="420" height="260" alt="" loading="lazy"><div><h3>Super toast <span class="p">6,00 €</span></h3><p>Pane da toast, prosciutto cotto, fontina</p></div></li>
-        <li><img src="img/m-piadina-cotto.webp" width="383" height="184" alt="" loading="lazy"><div><h3>Piadina cotto <span class="p">6,00 €</span></h3><p>Piadina, prosciutto cotto, fontina</p></div></li>
-        <li><img src="img/m-piadina-crudo.webp" width="289" height="197" alt="" loading="lazy"><div><h3>Piadina crudo <span class="p">6,00 €</span></h3><p>Piadina, prosciutto crudo, fontina</p></div></li>
-      </ul>
-      <p class="fine">Panini da asporto +0,50 €.</p>
-
+      <h2 id="h-pranzo" class="h-mid">Insalatone e piatti freddi</h2>
       <div class="pranzo-extra">
         <div class="card">
           <img src="img/m-insalatona.webp" width="420" height="416" alt="Insalatona mista" loading="lazy">
@@ -176,6 +196,43 @@
         </div>
       </div>
       <p class="fine">Insalatone e piatti freddi in pausa pranzo, dalle 11:30 alle 14:00. Da asporto +1 €.</p>
+    </div>
+  </section>
+
+  <section class="voci" aria-labelledby="h-voci">
+    <div class="wrap">
+      <h2 id="h-voci">4,9 su Google, da 67 recensioni.</h2>
+      <ul class="voci-list">
+        <li class="voce">
+          <figure>
+            <p class="voce-stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Frequento il Borgo Bello Bistrot di Benassuti Giulia quasi ogni giorno per il pranzo durante la settimana lavorativa, e posso dire con certezza che è diventato il mio punto di riferimento.»</p></blockquote>
+            <figcaption>Luca P., su Google</figcaption>
+          </figure>
+        </li>
+        <li class="voce">
+          <figure>
+            <p class="voce-stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Ottimo cibo, buona scelta di birre e cocktail, preparati con sapiente professionalità. Ma soprattutto staff veramente efficiente e accogliente.»</p></blockquote>
+            <figcaption>Dave R., su Google</figcaption>
+          </figure>
+        </li>
+        <li class="voce">
+          <figure>
+            <p class="voce-stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Locale accogliente e moderno, il migliore a Dossobuono e dintorni per pranzi di lavoro (e non).»</p></blockquote>
+            <figcaption>Mattia B., su Google</figcaption>
+          </figure>
+        </li>
+        <li class="voce">
+          <figure>
+            <p class="voce-stars" aria-label="5 stelle su 5">★★★★★</p>
+            <blockquote><p>«Locale fantastico, servizio rapido e sempre con il sorriso! Ottimo posto per staccare da lavoro in pausa pranzo!»</p></blockquote>
+            <figcaption>Gaspare M., su Google</figcaption>
+          </figure>
+        </li>
+      </ul>
+      <a class="link-google" href="https://www.google.com/maps?cid=16675559475256100294" target="_blank" rel="noopener">Leggi le recensioni su Google</a>
     </div>
   </section>
 
@@ -277,7 +334,7 @@
         <p class="lead">Compleanni, lauree, battesimi, baby shower: organizziamo eventi privati qui al Borgo Bello, anche con cena, oppure nella vostra location. Ci pensiamo noi al catering e all'allestimento, su misura.</p>
         <a class="btn btn-dark" href="https://wa.me/393516469168?text=Ciao%20Borgo%20Bello%2C%20vorrei%20informazioni%20per%20un%20evento%20privato." target="_blank" rel="noopener">Chiedi informazioni</a>
       </div>
-      <img class="photo" src="img/evento-allestimento.webp" width="540" height="675" alt="Allestimento per una festa di primo compleanno con palloncini e orsetto" loading="lazy">
+      <img class="photo photo-tilt photo-tilt-r" src="img/evento-allestimento.webp" width="540" height="675" alt="Allestimento per una festa di primo compleanno con palloncini e orsetto" loading="lazy">
     </div>
   </section>
 
@@ -320,7 +377,7 @@
     <img src="img/logo-borgo-bello.webp" width="400" height="374" alt="Borgo Bello Bistrot" loading="lazy">
     <div>
       <p>Borgo Bello Bistrot di Benassuti Giulia<br>Via Staffali 44C, 37062 Dossobuono (VR)</p>
-      <p class="foot-small">Foto e prezzi dal menu e dai canali social di Borgo Bello Bistrot. Proposta grafica di <a href="../../">Insegna</a>.</p>
+      <p class="foot-small">Foto e prezzi dal menu e dai canali social di Borgo Bello Bistrot. La foto in apertura e gli ingredienti del panino sono immagini illustrative realizzate per la proposta. Proposta grafica di <a href="../../">Insegna</a>.</p>
     </div>
   </div>
 </footer>

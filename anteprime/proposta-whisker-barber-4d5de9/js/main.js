@@ -1,8 +1,8 @@
-/* Whisker Barber: sfumatura interattiva + orari con il palo che gira */
+/* Whisker Barber: orari, galleria che scorre di lato, palo da barbiere che gira */
 (function () {
   "use strict";
 
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMQ = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
 
   /* ------------------------------------------------------------------
      Orari: aperto ora / chiuso, calcolato sull'ora italiana
@@ -71,11 +71,6 @@
       status.classList.toggle("is-open", isOpen);
       status.classList.toggle("is-closed", !isOpen);
     }
-    var pole = document.getElementById("pole");
-    if (pole) {
-      pole.classList.toggle("is-open", isOpen);
-      pole.classList.toggle("is-closed", !isOpen);
-    }
     var dock = document.getElementById("dock-status");
     if (dock) {
       dock.classList.toggle("is-open", isOpen);
@@ -93,265 +88,182 @@
   setInterval(updateStatus, 60000);
 
   /* ------------------------------------------------------------------
-     La sfumatura: testa di profilo a tratteggio, come un'incisione
+     Galleria: la sezione resta ferma e le foto scorrono di lato
+     mentre scendi con la pagina (guidato dall'evento scroll)
      ------------------------------------------------------------------ */
-  var canvas = document.querySelector(".fade__canvas");
-  var range = document.getElementById("fade-range");
-  if (!canvas || !range || !canvas.getContext || typeof Path2D === "undefined") return;
+  function hscroll(section) {
+    var pin = section.querySelector("[data-pin]");
+    var track = section.querySelector("[data-htrack]");
+    if (!pin || !track) return;
+    var dist = 0, range = 1, pinned = false;
 
+    function measure() {
+      pinned = !reduceMQ.matches && window.innerHeight >= 480;
+      section.classList.toggle("is-pinned", pinned);
+      if (!pinned) {
+        section.style.height = "";
+        track.style.removeProperty("--x");
+        return;
+      }
+      dist = Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      section.style.height = (pin.offsetHeight + dist) + "px";
+      range = Math.max(1, section.offsetHeight - pin.offsetHeight);
+      update();
+    }
+
+    function update() {
+      if (!pinned) return;
+      var top = section.getBoundingClientRect().top;
+      var p = Math.min(1, Math.max(0, -top / range));
+      track.style.setProperty("--x", (-p * dist).toFixed(1) + "px");
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", measure);
+    if (reduceMQ.addEventListener) reduceMQ.addEventListener("change", measure);
+    window.addEventListener("load", measure);
+    track.addEventListener("load", measure, true);
+    measure();
+  }
+  var hs = document.querySelectorAll("[data-hscroll]");
+  for (var k = 0; k < hs.length; k++) hscroll(hs[k]);
+
+  /* ------------------------------------------------------------------
+     Gli attrezzi del listino ruotano appena mentre scorri
+     ------------------------------------------------------------------ */
+  var tools = Array.prototype.slice.call(document.querySelectorAll("[data-drift]"));
+  function drift() {
+    if (reduceMQ.matches) {
+      tools.forEach(function (el) { el.style.removeProperty("--dr"); });
+      return;
+    }
+    var vh = window.innerHeight;
+    tools.forEach(function (el) {
+      var box = el.parentNode.getBoundingClientRect(); // il contenitore non ruota: niente effetto a catena
+      if (box.bottom < -100 || box.top > vh + 100) return;
+      var c = (box.top + box.height / 2 - vh / 2) / vh;
+      var k = parseFloat(el.getAttribute("data-drift")) || 1;
+      el.style.setProperty("--dr", (c * 14 * k).toFixed(2) + "deg");
+    });
+  }
+  if (tools.length) {
+    window.addEventListener("scroll", drift, { passive: true });
+    window.addEventListener("resize", drift);
+    if (reduceMQ.addEventListener) reduceMQ.addEventListener("change", drift);
+    drift();
+  }
+
+  /* ------------------------------------------------------------------
+     Il palo da barbiere: spirale rossa, bianca e blu su un cilindro.
+     Ogni colonna di pixel è un punto del cilindro visto di fronte,
+     così le righe si piegano ai bordi come su un palo vero.
+     ------------------------------------------------------------------ */
+  var canvas = document.querySelector(".pole__canvas");
+  if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext("2d");
-  var W = 400, H = 460;
+  var COLORS = [[226, 18, 30], [255, 255, 255], [22, 70, 214], [255, 255, 255]];
+  var W = 0, H = 0, img = null, cols = null, P = 1, slopeK = 1;
 
-  var HEAD = new Path2D("M150 460 C150 420 146 394 140 374 C116 356 94 320 88 272 C80 212 92 150 128 112 C162 76 214 62 258 74 C302 88 328 124 332 166 C334 184 332 196 336 208 C344 224 354 242 361 260 C365 270 359 277 348 279 C344 285 350 292 347 298 C352 304 347 310 344 314 C350 321 346 331 340 335 C341 350 335 362 321 368 C301 375 279 373 262 371 C257 393 255 421 257 460 Z");
-  var HAIR = new Path2D("M320 134 C316 96 272 56 214 52 C158 50 110 78 88 128 C70 176 72 242 88 292 C99 328 120 354 142 370 L152 374 C158 352 168 322 186 302 C185 282 185 252 190 222 C197 199 222 190 234 205 L238 272 L252 272 C254 236 259 196 271 172 C287 152 305 140 320 134 Z");
-  var EAR = new Path2D("M222 206 C214 195 196 196 192 214 C188 232 193 252 198 265 C203 279 215 283 219 271 C223 259 216 247 222 233 C226 222 228 212 222 206 Z");
-  var EAR_IN = new Path2D("M214 214 C204 212 200 226 204 240 C206 248 212 251 215 245");
-  var BROW = new Path2D("M302 184 C312 179 323 180 331 185");
-  var EYE = new Path2D("M310 199 C316 195 322 196 326 200");
-  var NOSTRIL = new Path2D("M339 270 C343 267 347 268 348 271");
-  var MOUTH = new Path2D("M333 309 C337 310 341 309 344 308");
-  var JAW = new Path2D("M232 296 C246 326 276 350 312 362");
-
-  var CREMA = "241,232,214";
-  var ROSSO = "#c4413a";
-
-  // Campionamento dei capelli dentro la sagoma (sempre gli stessi, generatore deterministico)
-  var seed = 7;
-  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-
-  var probe = document.createElement("canvas");
-  probe.width = W; probe.height = H;
-  var pctx = probe.getContext("2d");
-  // i capelli cadono dalla corona: in avanti sul davanti, giù sui lati, indietro sulla nuca
-  var CROWN = { x: 150, y: 104 };
-  var strands = [];
-  var stubble = [];
-  var tries = 0;
-  var GAP = 5.2;
-  for (var gy = 40; gy < 384; gy += GAP) {
-    for (var gx = 64; gx < 336; gx += GAP) {
-      var x = gx + (rnd() - 0.5) * GAP * 0.9, y = gy + (rnd() - 0.5) * GAP * 0.9;
-      if (!pctx.isPointInPath(HAIR, x, y)) continue;
-      var dx = x - CROWN.x, dy = y - CROWN.y;
-      var len = Math.sqrt(dx * dx + dy * dy) || 1;
-      var pull = Math.min(1, len / 70) * 0.62;
-      var fx = dx / len * pull + 0.22, fy = dy / len * pull + 0.5;
-      var ang = Math.atan2(fy, fx) + (rnd() - 0.5) * 0.16;
-      var topness = Math.max(0, Math.min(1, (190 - y) / 90));
-      strands.push({
-        x: x, y: y,
-        ux: Math.cos(ang), uy: Math.sin(ang),
-        curl: 0.25 + (rnd() - 0.5) * 0.3,
-        r: rnd(),
-        w: 0.9 + rnd() * 0.5,
-        a: 0.62 + rnd() * 0.35,
-        top: 9 + 8 * topness + rnd() * 2.5
-      });
+  function setup() {
+    var r = canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return false;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(8, Math.round(r.width * dpr));
+    H = Math.max(8, Math.round(r.height * dpr));
+    canvas.width = W;
+    canvas.height = H;
+    img = ctx.createImageData(W, H);
+    // periodo verticale delle 4 bande e quanto sale la spirale girando
+    P = W * 1.55;
+    var R = W / 2;
+    var A = R * 1.05; // inclinazione al centro: poco più di 45 gradi
+    cols = [];
+    for (var x = 0; x < W; x++) {
+      var s = Math.max(-0.999, Math.min(0.999, (x + 0.5 - R) / R));
+      var th = Math.asin(s);
+      var c = Math.cos(th);
+      // luce da sinistra, un po' davanti
+      var diff = 0.62 + 0.38 * Math.max(0, Math.cos(th + 0.45));
+      var spec = Math.exp(-Math.pow((th + 0.62) / 0.16, 2)) * 0.55 + Math.exp(-Math.pow((th - 0.85) / 0.1, 2)) * 0.18;
+      var edge = Math.pow(c, 0.35);
+      // pendenza delle righe in questa colonna (per l'antialias)
+      var dOff = A / (R * Math.max(c, 0.05));
+      cols.push({ off: A * th, shade: diff * (0.55 + 0.45 * edge), spec: spec, grad: Math.sqrt(1 + dOff * dOff) / P * 4 });
     }
-  }
-  while (stubble.length < 900 && tries < 30000) {
-    tries++;
-    var sx = 70 + rnd() * 260, sy = 150 + rnd() * 230;
-    if (pctx.isPointInPath(HAIR, sx, sy)) stubble.push({ x: sx, y: sy, r: 0.5 + rnd() * 0.6 });
+    slopeK = A;
+    return true;
   }
 
-  var STYLES = [
-    { max: 22, name: "Taper", skin: "Skin taper",
-      desc: "Si accorcia solo ai bordi, su basette e nuca. Il resto resta pieno: pulito ma discreto." },
-    { max: 46, name: "Low fade", skin: "Low skin fade",
-      desc: "La sfumatura parte bassa e gira appena sopra l'orecchio. Si nota poco e sta bene con tutto." },
-    { max: 72, name: "Mid fade", skin: "Mid skin fade",
-      desc: "Sale fino a metà della testa. Il contrasto con il sopra si vede bene." },
-    { max: 101, name: "High fade", skin: "High skin fade",
-      desc: "Parte alta, vicino alle tempie. Netta e decisa: va rinfrescata più spesso." }
-  ];
-
-  var nameEl = document.getElementById("fade-name");
-  var descEl = document.getElementById("fade-desc");
-  var ctaName = document.getElementById("fade-cta-name");
-  var ctaEl = document.getElementById("fade-cta");
-  var baseInputs = document.querySelectorAll('input[name="base"]');
-
-  var state = { v: parseFloat(range.value), skin: true };
-  var lastStyle = "";
-
-  function styleFor(v) {
-    for (var i = 0; i < STYLES.length; i++) if (v < STYLES[i].max) return STYLES[i];
-    return STYLES[STYLES.length - 1];
-  }
-
-  function updateText() {
-    var s = styleFor(state.v);
-    var label = state.skin ? s.skin : s.name;
-    if (label !== lastStyle) {
-      lastStyle = label;
-      nameEl.textContent = label;
-      descEl.textContent = s.desc + (state.skin ? " In basso si arriva a pelle." : " In basso resta un velo di capelli.");
-      ctaName.textContent = label;
-      ctaEl.setAttribute("aria-label", "Chiama il 347 595 8858 per prenotare un " + label);
-      range.setAttribute("aria-valuetext", label);
-    }
-  }
-
-  function setupCanvas() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 3);
-    var rect = canvas.getBoundingClientRect();
-    var cssW = rect.width || 400;
-    var px = Math.round(cssW * dpr);
-    if (canvas.width !== px) {
-      canvas.width = px;
-      canvas.height = Math.round(px * H / W);
-    }
-  }
-
-  function draw() {
-    var s = canvas.width / W;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.setTransform(s, 0, 0, s, 0, 0);
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-
-    var v = state.v;
-    var yTop = 322 - v * 1.62;          // dove finisce la sfumatura
-    var band = 42 + v * 0.38;           // quanto è lunga la transizione
-    var yBot = yTop + band;
-
-    // sagoma
-    ctx.fillStyle = "#24503f";
-    ctx.fill(HEAD);
-
-    // zona rasata: un velo di puntini, oppure pelle
-    if (!state.skin) {
-      ctx.fillStyle = "rgba(" + CREMA + ",0.42)";
-      for (var k = 0; k < stubble.length; k++) {
-        var d = stubble[k];
-        if (d.y > yBot - 6) {
-          ctx.beginPath();
-          ctx.arc(d.x, d.y, d.r, 0, 6.283);
-          ctx.fill();
+  function draw(t) {
+    if (!img) return;
+    var d = img.data;
+    for (var x = 0; x < W; x++) {
+      var col = cols[x];
+      var sh = col.shade, sp = col.spec * 255, g = col.grad;
+      for (var y = 0; y < H; y++) {
+        var u = (y + col.off + t) / P;
+        u = (u - Math.floor(u)) * 4;           // 0..4: quale banda
+        var i = Math.floor(u);
+        var f = u - i;                          // posizione dentro la banda
+        var c0 = COLORS[i], c1, w = 0;
+        // antialias sul bordo tra due bande
+        var distNext = (1 - f) / g, distPrev = f / g;
+        if (distNext < 0.5) { c1 = COLORS[(i + 1) & 3]; w = 0.5 - distNext; }
+        else if (distPrev < 0.5) { c1 = COLORS[(i + 3) & 3]; w = 0.5 - distPrev; }
+        var r0 = c0[0], g0 = c0[1], b0 = c0[2];
+        if (w > 0) {
+          r0 += (c1[0] - r0) * w; g0 += (c1[1] - g0) * w; b0 += (c1[2] - b0) * w;
         }
+        var o = (y * W + x) * 4;
+        d[o] = Math.min(255, r0 * sh + sp);
+        d[o + 1] = Math.min(255, g0 * sh + sp);
+        d[o + 2] = Math.min(255, b0 * sh + sp);
+        d[o + 3] = 255;
       }
     }
+    ctx.putImageData(img, 0, 0);
+  }
 
-    // capelli a tratteggio, tenuti dentro la sagoma della capigliatura
-    ctx.save();
-    ctx.clip(HAIR);
-    for (var i = 0; i < strands.length; i++) {
-      var st = strands[i];
-      var f;
-      if (st.y <= yTop) f = 1;
-      else if (st.y >= yBot) f = 0;
-      else f = Math.pow(1 - (st.y - yTop) / band, 1.35);
-      if (f <= 0.02 || (f < 1 && f < st.r * 0.8)) continue;
-      var L = st.top * (st.y <= yTop ? 1 : (0.12 + 0.88 * f));
-      var ex = st.x + st.ux * L, ey = st.y + st.uy * L;
-      var cx = st.x + st.ux * L * 0.5 - st.uy * st.curl * L * 0.35;
-      var cy = st.y + st.uy * L * 0.5 + st.ux * st.curl * L * 0.35;
-      ctx.strokeStyle = "rgba(" + CREMA + "," + (st.a * (0.35 + 0.65 * f)).toFixed(3) + ")";
-      ctx.lineWidth = st.w * (0.6 + 0.4 * f);
-      ctx.beginPath();
-      ctx.moveTo(st.x, st.y);
-      ctx.quadraticCurveTo(cx, cy, ex, ey);
-      ctx.stroke();
+  var running = false, visible = false, last = 0, phase = 0, rafId = 0;
+  var SPEED = 0.55; // periodi al secondo: gira con calma, come quello vero
+
+  function frame(now) {
+    rafId = 0;
+    if (!running) return;
+    if (last) phase += (now - last) / 1000 * SPEED * P;
+    last = now;
+    phase %= P;
+    draw(phase);
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function sync() {
+    var should = visible && !reduceMQ.matches;
+    if (should && !running) {
+      running = true;
+      last = 0;
+      if (!rafId) rafId = requestAnimationFrame(frame);
+    } else if (!should && running) {
+      running = false;
     }
-    ctx.restore();
-
-    // contorno, orecchio e tratti del viso
-    ctx.strokeStyle = "rgba(" + CREMA + ",0.95)";
-    ctx.lineWidth = 2.2;
-    ctx.stroke(HEAD);
-    ctx.fillStyle = "#24503f";
-    ctx.fill(EAR);
-    ctx.lineWidth = 2;
-    ctx.stroke(EAR);
-    ctx.lineWidth = 1.6;
-    ctx.strokeStyle = "rgba(" + CREMA + ",0.8)";
-    ctx.stroke(EAR_IN);
-    ctx.stroke(BROW);
-    ctx.stroke(EYE);
-    ctx.stroke(NOSTRIL);
-    ctx.stroke(MOUTH);
-    ctx.strokeStyle = "rgba(" + CREMA + ",0.28)";
-    ctx.stroke(JAW);
-
-    // guida: fin dove arriva la sfumatura
-    ctx.save();
-    ctx.setLineDash([6, 6]);
-    ctx.strokeStyle = "rgba(" + CREMA + ",0.75)";
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.moveTo(40, yTop);
-    ctx.lineTo(262, yTop);
-    ctx.stroke();
-    ctx.restore();
-
-    // staffa laterale: la zona sfumata
-    ctx.strokeStyle = ROSSO;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(48, yTop);
-    ctx.lineTo(40, yTop);
-    ctx.lineTo(40, Math.min(yBot, 400));
-    ctx.lineTo(48, Math.min(yBot, 400));
-    ctx.stroke();
+    if (!running) draw(phase);
   }
 
-  var raf = 0;
-  function render() {
-    updateText();
-    if (raf) return;
-    raf = requestAnimationFrame(function () {
-      raf = 0;
-      draw();
-    });
-  }
-
-  function onResize() { setupCanvas(); render(); }
-
-  range.addEventListener("input", function () {
-    userTook = true;
-    state.v = parseFloat(range.value);
-    render();
-  });
-  for (var b = 0; b < baseInputs.length; b++) {
-    baseInputs[b].addEventListener("change", function (e) {
-      state.skin = e.target.value === "skin";
-      lastStyle = "";
-      render();
-    });
-  }
-
-  /* Scorrendo, la sfumatura sale da sola finché non tocchi il cursore */
-  var section = document.getElementById("sfumatura");
-  var userTook = false;
-  var scrolly = !reduceMotion && window.innerHeight >= 560;
-  if (scrolly) {
-    document.documentElement.classList.add("is-scrolly");
-    state.v = 6;
-    range.value = 6;
-  }
-
-  function onScroll() {
-    if (!scrolly || userTook) return;
-    var r = section.getBoundingClientRect();
-    var total = r.height - window.innerHeight;
-    if (total <= 0) return;
-    var p = Math.max(0, Math.min(1, -r.top / total));
-    // 0..0.85 della sezione: la sfumatura sale; l'ultimo tratto resta ferma per giocarci
-    var v = Math.round(Math.min(1, p / 0.85) * 92 + 4);
-    if (v !== state.v) {
-      state.v = v;
-      range.value = v;
-      render();
+  function init() {
+    if (!setup()) return;
+    draw(phase);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        sync();
+      }, { rootMargin: "100px" }).observe(canvas);
+    } else {
+      visible = true;
+      sync();
     }
   }
 
-  window.addEventListener("resize", onResize);
-  window.addEventListener("scroll", onScroll, { passive: true });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { lastStyle = ""; render(); });
-
-  setupCanvas();
-  onScroll();
-  render();
+  window.addEventListener("resize", function () { if (setup()) draw(phase); });
+  if (reduceMQ.addEventListener) reduceMQ.addEventListener("change", sync);
+  init();
 })();

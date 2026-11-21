@@ -92,6 +92,61 @@
   var todayDow = renderStatus();
   setInterval(renderStatus, 60000);
 
+  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---------- Galleria: la sezione resta ferma e le foto scorrono di lato mentre scendi ---------- */
+  function hscroll(section) {
+    var pin = section.querySelector('[data-pin]');
+    var track = section.querySelector('[data-htrack]');
+    if (!pin || !track) return;
+    var dist = 0, span = 1, on = false;
+    function measure() {
+      on = !reduceMQ.matches && window.innerHeight >= 480;
+      section.classList.toggle('is-pinned', on);
+      if (!on) { section.style.height = ''; track.style.removeProperty('--x'); return; }
+      dist = Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      section.style.height = (pin.offsetHeight + dist) + 'px';
+      span = Math.max(1, section.offsetHeight - pin.offsetHeight);
+      update();
+    }
+    function update() {
+      if (!on) return;
+      var p = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / span));
+      track.style.setProperty('--x', (-p * dist).toFixed(1) + 'px');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', measure);
+    if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', measure);
+    window.addEventListener('load', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
+  }
+  document.querySelectorAll('[data-hscroll]').forEach(hscroll);
+
+  /* ---------- Decori: si muovono appena, guidati dallo scroll ---------- */
+  var decos = Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
+  function drift() {
+    if (reduceMQ.matches) {
+      decos.forEach(function (el) { el.style.removeProperty('--dy'); el.style.removeProperty('--dr'); });
+      return;
+    }
+    var vh = window.innerHeight;
+    decos.forEach(function (el) {
+      var r = el.parentNode.getBoundingClientRect(); // il contenitore non si muove: niente effetto a catena
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      var c = (r.top + r.height / 2 - vh / 2) / vh; // -1..1 circa
+      var k = parseFloat(el.getAttribute('data-drift')) || 1;
+      el.style.setProperty('--dy', (c * -28 * k).toFixed(1) + 'px');
+      el.style.setProperty('--dr', (c * 7 * k).toFixed(2) + 'deg');
+    });
+  }
+  if (decos.length) {
+    window.addEventListener('scroll', drift, { passive: true });
+    window.addEventListener('resize', drift);
+    if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', drift);
+    drift();
+  }
+
   /* ---------- Le sere: settimana orizzontale guidata dallo scroll ---------- */
   var sere = document.querySelector('[data-sere]');
   if (!sere) return;

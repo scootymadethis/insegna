@@ -1,0 +1,364 @@
+@font-face {
+  font-family: "Della Respira";
+  src: url("../fonts/della-respira-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alegreya Sans";
+  src: url("../fonts/alegreya-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alegreya Sans";
+  src: url("../fonts/alegreya-sans-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Alegreya Sans";
+  src: url("../fonts/alegreya-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* I colori del banco: lacca beige, legno cacao, profili bronzo, piano in quarzo bianco */
+:root {
+  --lacca: #e9d9c4;
+  --lacca-scura: #dfcbb1;
+  --quarzo: #fbf8f3;
+  --cacao: #55281a;
+  --cacao-2: #6f3e2b;
+  --bronzo: #9a6a3a;
+  --bronzo-tenue: rgba(154, 106, 58, .5);
+  --mela: #4e7a1c;
+  --mela-chiara: #a6c862;
+  --display: "Della Respira", "Palatino Linotype", Georgia, serif;
+  --testo: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --wrap: 70rem;
+  --pad: 1.25rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--lacca);
+  color: var(--cacao);
+  font-family: var(--testo);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-underline-offset: .18em; text-decoration-thickness: 1px; }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+figure { margin: 0; }
+address { font-style: normal; }
+blockquote { margin: 0; }
+.wrap { width: min(100% - 2 * var(--pad), var(--wrap)); margin-inline: auto; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip {
+  position: absolute; left: .75rem; top: -4rem; z-index: 100;
+  padding: .7rem 1rem; background: var(--quarzo); color: var(--cacao);
+  font-weight: 700; text-decoration: none;
+}
+.skip:focus { top: .75rem; }
+:focus-visible { outline: 3px solid var(--mela); outline-offset: 3px; }
+
+/* Banner proposta */
+.ins-banner {
+  background: var(--cacao);
+  color: #eadbc6;
+  font-size: .875rem;
+  line-height: 1.35;
+  text-align: center;
+  padding: .55rem var(--pad);
+}
+.ins-banner a { color: #fff; }
+
+/* Cornice: il profilo rettangolare tono su tono dei frontali del banco */
+.cornice {
+  position: relative;
+  background: var(--quarzo);
+  border: 1px solid var(--bronzo);
+}
+.cornice::after {
+  content: "";
+  position: absolute; inset: 5px;
+  border: 1px solid var(--bronzo-tenue);
+  pointer-events: none;
+}
+figure.cornice { padding: 11px; }
+figure.cornice img { width: 100%; }
+
+/* Ovale: come l'insegna */
+.ovale {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid var(--cacao);
+  border-radius: 50%;
+  font-family: var(--display);
+  line-height: 1;
+  white-space: nowrap;
+}
+.logo {
+  font-size: clamp(1.9rem, 8.6vw, 2.6rem);
+  padding: .55em 1.05em .6em;
+  background: var(--quarzo);
+  box-shadow: 0 0 0 4px var(--quarzo), 0 0 0 5px var(--bronzo-tenue);
+}
+.logo span { transform: translateY(.03em); }
+.ovale-sm { font-size: 1.25rem; padding: .5em 1em .55em; border-width: 1.5px; }
+
+/* Bottoni */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 3rem; padding: .7rem 1.35rem;
+  border: 1.5px solid var(--cacao);
+  border-radius: 999px;
+  font: inherit; font-weight: 700; font-size: 1.0625rem; line-height: 1.1;
+  text-decoration: none; text-align: center;
+  transition: background-color .15s ease, color .15s ease;
+}
+.btn-cacao { background: var(--cacao); color: var(--quarzo); }
+.btn-cacao:hover { background: #6d3624; }
+.btn-line { background: transparent; color: var(--cacao); }
+.btn-line:hover { background: rgba(85, 40, 26, .07); }
+.cta-row { display: flex; flex-wrap: wrap; gap: .65rem; }
+
+/* Stato aperto/chiuso */
+.status {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .45rem 1rem .5rem;
+  border: 1.5px solid var(--cacao);
+  border-radius: 999px;
+  background: var(--quarzo);
+  font-weight: 700; font-size: 1rem; line-height: 1.2;
+}
+.status-dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--bronzo); flex: none; }
+.status.is-open .status-dot { background: var(--mela); box-shadow: 0 0 0 .22rem rgba(78, 122, 28, .2); }
+.status.is-closed .status-dot { background: #a5432b; }
+
+/* HERO */
+.hero { padding: 2rem 0 3rem; }
+.hero-grid { display: grid; gap: 2.25rem; }
+.hero-copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero-where { margin-top: 1.4rem; max-width: 30ch; font-size: 1rem; color: var(--cacao-2); }
+.hero-title {
+  margin-top: 1rem;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 11.5vw, 4.9rem);
+  line-height: 1.02;
+  letter-spacing: -.012em;
+}
+.hero-title span { display: block; }
+.hero-lead { margin-top: 1.1rem; max-width: 36ch; font-size: 1.1875rem; }
+.hero-meta { margin-top: 1.4rem; display: flex; flex-direction: column; align-items: center; gap: .7rem; }
+.rating { font-size: 1rem; font-weight: 700; }
+.stars { color: var(--bronzo); }
+.hero .cta-row { margin-top: 1.4rem; justify-content: center; }
+.hero-photo { width: min(100%, 26rem); margin-inline: auto; }
+.hero-photo img { aspect-ratio: 4 / 4.4; object-fit: cover; object-position: 50% 62%; }
+
+/* Sezioni */
+.vetrine, .feste, .recensioni, .visita { padding: 4rem 0; }
+.vetrine h2, .feste h2, .recensioni h2, .visita h2 {
+  font-family: var(--display);
+  font-size: clamp(2.1rem, 8.4vw, 3.3rem);
+  line-height: 1.05;
+}
+.sec-lead { margin-top: .9rem; max-width: 40ch; font-size: 1.1875rem; color: var(--cacao-2); }
+
+/* Due vetrine */
+.vetrine { background: var(--lacca-scura); }
+.vetrine-grid { margin-top: 2rem; display: grid; gap: 1.1rem; }
+.pannelli { display: grid; gap: 1.1rem; }
+.pannello { padding: 1.6rem 1.5rem 1.7rem; }
+.pannello h3 { font-family: var(--testo); font-weight: 700; font-size: 1.0625rem; color: var(--mela); }
+.pannello-big { margin-top: .35rem; font-family: var(--display); font-size: clamp(2rem, 8vw, 2.6rem); line-height: 1.05; }
+.pannello p:last-child { margin-top: .7rem; }
+.vetrine-photo img { aspect-ratio: 4 / 3.3; object-fit: cover; object-position: 50% 58%; }
+.vetrine-photo figcaption { padding: .75rem .25rem .2rem; font-size: .9375rem; font-style: italic; color: var(--cacao-2); }
+.gusti { margin-top: 2.25rem; }
+.gusti-intro { font-size: 1.0625rem; }
+.gusti-list { margin-top: .8rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+.gusti-list .ovale { background: var(--quarzo); }
+
+/* Un anno di feste */
+.feste-head { padding-bottom: 1.5rem; }
+.track-outer { position: relative; }
+.track { display: grid; gap: 1.25rem; width: min(100% - 2 * var(--pad), 30rem); margin-inline: auto; }
+.festa {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 1.25rem 1.25rem 1.4rem;
+  background: var(--quarzo);
+  border: 1px solid var(--bronzo);
+}
+.festa::after {
+  content: ""; position: absolute; inset: 5px;
+  border: 1px solid var(--bronzo-tenue); pointer-events: none;
+}
+.festa-data {
+  font-family: var(--display);
+  font-size: 1.9rem; line-height: 1.05;
+  padding-bottom: .65rem;
+  margin-bottom: .9rem;
+  border-bottom: 1px solid var(--bronzo-tenue);
+}
+.festa-foto { padding: 0; border: 0; background: none; }
+.festa-foto::after { display: none; }
+.festa-foto img { width: 100%; aspect-ratio: 4 / 4.2; object-fit: cover; }
+.festa h3 { margin-top: .95rem; font-family: var(--testo); font-weight: 700; font-size: 1.1875rem; line-height: 1.25; }
+.festa p:not(.festa-data) { margin-top: .4rem; font-size: 1.0625rem; line-height: 1.45; }
+.festa-testo .festa-data {
+  align-self: center;
+  margin: auto 0;
+  padding: .7em 1.1em .75em;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-size: 2.1rem;
+  white-space: nowrap;
+}
+.festa-testo h3 { margin-top: 1.5rem; font-family: var(--display); font-weight: 400; font-size: 1.75rem; }
+.festa-cta { background: var(--cacao); color: var(--quarzo); border-color: var(--cacao); }
+.festa-cta::after { border-color: rgba(251, 248, 243, .35); }
+.festa-cta .festa-data { border-color: rgba(251, 248, 243, .6); font-size: 1.75rem; }
+.festa-cta .btn { margin-top: 1.25rem; align-self: flex-start; background: var(--quarzo); color: var(--cacao); border-color: var(--quarzo); position: relative; z-index: 1; }
+.festa-cta .btn:focus-visible { outline-color: var(--mela-chiara); }
+.track-bar { display: none; }
+
+/* Versione a scorrimento orizzontale guidata dallo scroll verticale */
+.track-outer.is-pinned .track-sticky {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 1.1rem;
+  padding-bottom: calc(4.2rem + env(safe-area-inset-bottom));
+}
+.track-outer.is-pinned .track {
+  display: flex; align-items: stretch;
+  width: max-content; margin: 0;
+  padding-inline: max(var(--pad), (100vw - var(--wrap)) / 2);
+  will-change: transform;
+}
+.track-outer.is-pinned .festa { width: min(80vw, 21.5rem); flex: none; }
+.track-outer.is-pinned .festa-foto img { aspect-ratio: auto; height: min(34svh, 21rem); }
+.track-outer.is-pinned .track-bar {
+  display: block;
+  width: min(100% - 2 * var(--pad), var(--wrap)); margin-inline: auto;
+  height: 2px; background: var(--bronzo-tenue);
+}
+.track-bar span { display: block; height: 100%; background: var(--cacao); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* Recensioni sparse */
+.recensioni { background: var(--lacca-scura); }
+.rev-list { margin: 2.25rem 0 2.25rem; display: grid; gap: 1.4rem; }
+.rev-btn-top { display: none; }
+.rev {
+  position: relative;
+  width: min(88%, 26rem);
+  padding: 1.35rem 1.4rem 1.2rem;
+  background: var(--quarzo);
+  border: 1px solid var(--bronzo);
+}
+.rev::after { content: ""; position: absolute; inset: 5px; border: 1px solid var(--bronzo-tenue); pointer-events: none; }
+.rev blockquote p { font-size: 1.1875rem; line-height: 1.4; font-style: italic; }
+.rev-who { margin-top: .7rem; font-size: .9375rem; font-weight: 700; color: var(--cacao-2); }
+.rev-a { transform: rotate(-1.6deg); }
+.rev-b { transform: rotate(1.2deg); justify-self: end; }
+.rev-c { transform: rotate(-.8deg); margin-left: 6%; }
+.rev-d { transform: rotate(1.8deg); justify-self: end; margin-right: 3%; }
+
+/* Visita */
+.visita-grid { display: grid; gap: 2.5rem; }
+.visita-orari { padding: 1.6rem 1.4rem 1.6rem; }
+.status-big { margin-top: 1.1rem; }
+.hours { margin-top: 1.25rem; width: 100%; border-collapse: collapse; font-size: 1.0625rem; }
+.hours th, .hours td { padding: .55rem .4rem; text-align: left; vertical-align: top; border-top: 1px solid var(--bronzo-tenue); }
+.hours th { font-weight: 400; }
+.hours td { text-align: right; font-variant-numeric: tabular-nums; }
+.hours tr.is-today { background: rgba(166, 200, 98, .28); }
+.hours tr.is-today th, .hours tr.is-today td { font-weight: 700; }
+.small { margin-top: 1rem; font-size: .9688rem; color: var(--cacao-2); }
+.h-dove { font-family: var(--display); }
+.addr { margin-top: 1rem; font-size: 1.375rem; line-height: 1.35; font-family: var(--display); }
+.visita-dove > p { margin-top: .8rem; max-width: 38ch; }
+.visita-dove .btn { margin-top: 1.25rem; }
+.contacts { margin-top: 1.75rem; display: grid; gap: .1rem; }
+.contacts li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem 1rem; padding: .6rem 0; border-top: 1px solid var(--bronzo-tenue); }
+.contacts span { color: var(--cacao-2); }
+.contacts a { font-weight: 700; overflow-wrap: anywhere; }
+
+/* Footer */
+.foot { background: var(--cacao); color: #eadbc6; padding: 3rem 0 3.5rem; text-align: center; }
+.foot-in { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.logo-sm { font-size: 1.6rem; color: var(--cacao); border-color: var(--cacao); }
+.foot-small { font-size: .875rem; opacity: .85; }
+.foot a { color: #fff; }
+
+/* Barra contatti su mobile */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: grid; grid-template-columns: 1fr 1fr; gap: .5rem;
+  padding: .55rem .75rem calc(.55rem + env(safe-area-inset-bottom));
+  background: rgba(251, 248, 243, .96);
+  border-top: 1px solid var(--bronzo);
+  backdrop-filter: blur(6px);
+}
+.bar-btn {
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 3rem; border-radius: 999px;
+  font-weight: 700; text-decoration: none;
+  border: 1.5px solid var(--cacao);
+}
+.bar-call { background: var(--cacao); color: var(--quarzo); }
+.bar-map { background: var(--quarzo); color: var(--cacao); }
+
+@media (min-width: 720px) {
+  .vetrine-grid { grid-template-columns: 1fr 1fr; }
+  .vetrine-photo { grid-column: 1 / -1; }
+  .vetrine-photo img { aspect-ratio: 16 / 8; }
+  .rev { width: min(80%, 28rem); }
+}
+
+@media (min-width: 960px) {
+  body { padding-bottom: 0; }
+  .bar { display: none; }
+  .hero { padding: 3rem 0 4.5rem; }
+  .hero-grid { grid-template-columns: 1.15fr .85fr; align-items: center; gap: 3rem; }
+  .hero-photo { width: 100%; }
+  .vetrine, .feste, .recensioni, .visita { padding: 6rem 0; }
+  .vetrine-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch; }
+  .vetrine-photo { grid-column: auto; align-self: start; }
+  .vetrine-photo img { aspect-ratio: 5 / 4; }
+  .pannelli { grid-template-rows: 1fr 1fr; }
+  .pannello { padding: 2rem 2rem 2.1rem; display: flex; flex-direction: column; justify-content: center; }
+  .hero-title { font-size: clamp(3.6rem, 5.4vw, 4.6rem); }
+  .hero-where { max-width: 44ch; }
+  .rev-grid { display: grid; grid-template-columns: 20rem 1fr; gap: 3rem; align-items: start; }
+  .rev-head { position: sticky; top: 3rem; }
+  .rev-btn-top { display: inline-flex; margin-top: 1.75rem; }
+  .rev-btn-bottom { display: none; }
+  .rev-list { margin: 0; }
+  .rev { width: min(78%, 30rem); }
+  .track-outer.is-pinned .festa { width: 22rem; }
+  .visita-grid { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}

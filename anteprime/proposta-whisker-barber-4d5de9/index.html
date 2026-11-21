@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip" href="#sfumatura">Vai alla sfumatura</a>
+  <a class="skip" href="#contenuto">Vai al contenuto</a>
 
   <p class="proposta">Proposta di <a href="../../">Insegna</a> per Whisker Barber: non è il sito ufficiale dell'attività</p>
 
@@ -42,53 +42,30 @@
     <div class="cape" aria-hidden="true"></div>
   </header>
 
-  <main>
-    <section class="fade" id="sfumatura" aria-labelledby="fade-title">
-      <div class="fade__stage">
-        <div class="fade__copy">
-          <h2 id="fade-title">Fin dove sfumiamo?</h2>
-          <p class="fade__hint">Scorri e la sfumatura sale dalla nuca alle tempie. Poi trascina il cursore e scegli la tua: dicci il nome, al resto pensiamo noi.</p>
-        </div>
-
-        <figure class="fade__figure">
-          <canvas class="fade__canvas" width="400" height="460" role="img" aria-label="Testa di profilo disegnata a tratteggio: la sfumatura cambia altezza con il cursore"></canvas>
-        </figure>
-
-        <div class="fade__panel">
-          <p class="fade__name" aria-live="polite"><output id="fade-name" for="fade-range">Mid fade</output></p>
-          <p class="fade__desc" id="fade-desc">Sale fino a metà della testa. Il contrasto con il sopra si vede bene.</p>
-
-          <label class="sr-only" for="fade-range">Altezza della sfumatura</label>
-          <div class="fade__track">
-            <span aria-hidden="true">nuca</span>
-            <input id="fade-range" type="range" min="0" max="100" step="1" value="55" aria-describedby="fade-desc">
-            <span aria-hidden="true">tempie</span>
-          </div>
-
-          <fieldset class="fade__base">
-            <legend>In basso</legend>
-            <label><input type="radio" name="base" value="skin" checked> a pelle</label>
-            <label><input type="radio" name="base" value="velo"> con un velo</label>
-          </fieldset>
-
-          <a class="btn btn--red btn--wide" id="fade-cta" href="tel:+393475958858"><span>Prenota un <span id="fade-cta-name">Mid skin fade</span></span></a>
-        </div>
-      </div>
-    </section>
-
+  <main id="contenuto">
     <section class="servizi" aria-labelledby="servizi-title">
       <div class="wrap">
-        <h2 id="servizi-title">Cosa facciamo</h2>
+        <div class="servizi__head">
+          <h2 id="servizi-title">Cosa facciamo</h2>
+          <div class="mensola" aria-hidden="true">
+            <img class="mensola__pettine" src="img/attrezzo-pettine.webp" width="440" height="131" alt="" loading="lazy">
+            <img class="mensola__dopobarba" src="img/attrezzo-dopobarba.webp" width="292" height="440" alt="" loading="lazy">
+            <img class="mensola__pennello" src="img/attrezzo-pennello.webp" width="270" height="440" alt="" loading="lazy">
+          </div>
+        </div>
         <ul class="listino">
           <li>
+            <img class="listino__tool listino__tool--forbici" src="img/attrezzo-forbici.webp" width="440" height="377" alt="" aria-hidden="true" loading="lazy" data-drift="1">
             <h3>Taglio</h3>
             <p>Sfumature dalla nuca alle tempie, taper, forbici sul sopra, righe e disegni rasati. Quello che vedi sul nostro Instagram lo facciamo qui, sulla poltrona.</p>
           </li>
           <li>
+            <img class="listino__tool listino__tool--rasoio" src="img/attrezzo-rasoio.webp" width="440" height="217" alt="" aria-hidden="true" loading="lazy" data-drift="-1">
             <h3>Barba</h3>
             <p>Contorno, lunghezza e una sfumatura che si raccorda con il taglio, così barba e capelli sembrano una cosa sola.</p>
           </li>
           <li>
+            <img class="listino__tool listino__tool--macchinetta" src="img/attrezzo-macchinetta.webp" width="344" height="440" alt="" aria-hidden="true" loading="lazy" data-drift="1">
             <h3>Taglio e barba</h3>
             <p>Tutto in una seduta: entri con un appuntamento, esci sistemato da capo a mento.</p>
           </li>
@@ -111,23 +88,55 @@
       </div>
     </section>
 
-    <section class="lavori" aria-labelledby="lavori-title">
-      <div class="wrap">
-        <h2 id="lavori-title">Usciti dalla nostra poltrona</h2>
-        <p class="lavori__lead">Alcuni tagli che abbiamo pubblicato sul nostro profilo. Scorri di lato.</p>
+    <section class="lavori" id="lavori" aria-labelledby="lavori-title" data-hscroll>
+      <div class="lavori__pin" data-pin>
+        <div class="wrap lavori__head">
+          <h2 id="lavori-title">Usciti dalla nostra poltrona</h2>
+          <p class="lavori__lead">Alcuni tagli che abbiamo pubblicato sul nostro profilo Instagram.</p>
+        </div>
+        <div class="lavori__viewport">
+          <ul class="reel" data-htrack>
+            <li><figure><img src="img/lavoro-skin-fade.webp" width="512" height="640" loading="lazy" alt="Taglio corto con skin fade sopra l'orecchio"><figcaption>Skin fade</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-taper-ricci.webp" width="360" height="640" loading="lazy" alt="Nuca sfumata con ricci lunghi sopra, vista da dietro"><figcaption>Taper e ricci</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-cuore.webp" width="360" height="640" loading="lazy" alt="Nuca rasata con un cuore disegnato nella sfumatura"><figcaption>Il cuore rasato</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-low-taper.webp" width="512" height="640" loading="lazy" alt="Low taper con frangia lunga, di profilo"><figcaption>Low taper e frangia</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-barba.webp" width="512" height="640" loading="lazy" alt="Ricci sopra, sfumatura e barba rifinita"><figcaption>Sfumatura e barba</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-disegno-ricci.webp" width="360" height="640" loading="lazy" alt="Ricci con linee rasate nella sfumatura laterale"><figcaption>Ricci e linee</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-raccolto-riga.webp" width="512" height="640" loading="lazy" alt="Capelli raccolti con riga rasata e lati sfumati"><figcaption>Raccolto con riga</figcaption></figure></li>
+            <li><figure><img src="img/lavoro-volume.webp" width="360" height="640" loading="lazy" alt="Sfumatura alta con volume spettinato sopra"><figcaption>Volume sopra</figcaption></figure></li>
+          </ul>
+        </div>
+        <div class="wrap lavori__foot">
+          <a class="link-ig" href="https://www.instagram.com/whiskerbarber_/" rel="noopener" target="_blank">Altri tagli su Instagram: @whiskerbarber_</a>
+        </div>
       </div>
-      <ul class="reel" tabindex="0" aria-label="Galleria dei lavori, scorribile in orizzontale">
-        <li><figure><img src="img/lavoro-skin-fade.webp" width="512" height="640" loading="lazy" alt="Taglio corto con skin fade sopra l'orecchio"><figcaption>Skin fade</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-taper-ricci.webp" width="360" height="640" loading="lazy" alt="Nuca sfumata con ricci lunghi sopra, vista da dietro"><figcaption>Taper e ricci</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-cuore.webp" width="360" height="640" loading="lazy" alt="Nuca rasata con un cuore disegnato nella sfumatura"><figcaption>Il cuore rasato</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-low-taper.webp" width="512" height="640" loading="lazy" alt="Low taper con frangia lunga, di profilo"><figcaption>Low taper e frangia</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-barba.webp" width="512" height="640" loading="lazy" alt="Ricci sopra, sfumatura e barba rifinita"><figcaption>Sfumatura e barba</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-disegno-ricci.webp" width="360" height="640" loading="lazy" alt="Ricci con linee rasate nella sfumatura laterale"><figcaption>Ricci e linee</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-raccolto-riga.webp" width="512" height="640" loading="lazy" alt="Capelli raccolti con riga rasata e lati sfumati"><figcaption>Raccolto con riga</figcaption></figure></li>
-        <li><figure><img src="img/lavoro-volume.webp" width="360" height="640" loading="lazy" alt="Sfumatura alta con volume spettinato sopra"><figcaption>Volume sopra</figcaption></figure></li>
-      </ul>
+    </section>
+
+    <section class="voci" aria-labelledby="voci-title">
       <div class="wrap">
-        <a class="link-ig" href="https://www.instagram.com/whiskerbarber_/" rel="noopener" target="_blank">Altri tagli su Instagram: @whiskerbarber_</a>
+        <div class="voci__head">
+          <h2 id="voci-title">Parola di chi si è seduto qui</h2>
+          <p class="voci__lead">4,9 su Google, da 69 recensioni.</p>
+        </div>
+        <ul class="voci__list">
+          <li class="voce">
+            <blockquote><p>Locale che ricorda le barberie di un tempo. Bellissimo!</p></blockquote>
+            <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Claudio C.</strong> su Google</span></p>
+          </li>
+          <li class="voce">
+            <blockquote><p>Stefano ti mette a tuo agio e ascolta le tue esigenze per un taglio contemporaneo ma elegante. Lo consiglio!</p></blockquote>
+            <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Michele</strong> su Google</span></p>
+          </li>
+          <li class="voce">
+            <blockquote><p>ho lasciato decidere a lui il taglio e la modellatura della barba e mi ha sorpreso! veramente in gamba!</p></blockquote>
+            <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Valerio B.</strong> su Google</span></p>
+          </li>
+          <li class="voce">
+            <blockquote><p>Un eccellente servizio di barbiere per uomo. Classico e fresco allo stesso tempo.</p></blockquote>
+            <p class="voce__who"><span class="voce__stars" role="img" aria-label="5 stelle su 5"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Fabio S.</strong> su Google</span></p>
+          </li>
+        </ul>
+        <a class="link-ig voci__link" href="https://www.google.com/maps/search/?api=1&amp;query=Whisker%20Barber%2C%20Via%20Cavour%2012%2C%20Dossobuono" rel="noopener" target="_blank">Leggi le recensioni su Google</a>
       </div>
     </section>
 
@@ -147,9 +156,11 @@
     <section class="orari" id="orari" aria-labelledby="orari-title">
       <div class="wrap orari__grid">
         <div class="pole" id="pole" aria-hidden="true">
-          <span class="pole__cap"></span>
-          <span class="pole__glass"><span class="pole__stripes"></span></span>
+          <span class="pole__ball"></span>
+          <span class="pole__cap pole__cap--top"></span>
+          <span class="pole__glass"><canvas class="pole__canvas" width="60" height="300"></canvas></span>
           <span class="pole__cap pole__cap--bottom"></span>
+          <span class="pole__tip"></span>
         </div>
         <div>
           <h2 id="orari-title">Quando siamo aperti</h2>
@@ -166,7 +177,7 @@
               <tr data-day="0"><th scope="row">Domenica</th><td>Chiuso</td></tr>
             </tbody>
           </table>
-          <p class="orari__note">Il palo qui accanto gira quando siamo aperti, come quello vero.</p>
+          <p class="orari__note">Per prenotare chiama il <a href="tel:+393475958858">347 595 8858</a>.</p>
         </div>
       </div>
     </section>

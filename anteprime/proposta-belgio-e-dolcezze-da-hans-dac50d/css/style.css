@@ -373,3 +373,6 @@ body { --dock: calc(4.1rem + env(safe-area-inset-bottom)); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* telefoni molto stretti: lo stato in alto non esce dallo schermo */
+@media (max-width:360px){.status[data-short]{font-size:.75rem;padding:.35rem .6rem;white-space:normal;max-width:46vw;line-height:1.2}}
